@@ -1,0 +1,25 @@
+เว็บแอพ
+backend
+ทำเว็บบอกว่ามีรถเท่าไหร่
+ที่จอด3ชั้นกล้อง8 ชั้น2 3ตัว ชั้น 3 3ตัว ชั้น4 2 ตัว
+magodb ข้อมูลเป็น json
+token ความปลอดภัย
+ubuntu
+สร้างเว็บเชื่อมต่อกับไพทอน
+ajax คือเจคิวรี่ที่มีเอเจ็กอยู่ข้าง ใน
+เขียนจาวาเรียกไพทอน
+
+https://pypi.org/project/requests/
+
+https://pypi.org/project/Flask/
+
+https://code.jquery.com/
+
+https://www.thaicreate.com/jquery/jquery-ajax-jquery-ajax.html
+//ฟอร์มทำเว็บ
+https://kongruksiamza.medium.com/%E0%B8%9E%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B9%81%E0%B8%AD%E0%B8%9E%E0%B8%9E%E0%B8%A5%E0%B8%B4%E0%B9%80%E0%B8%84%E0%B8%8A%E0%B8%B1%E0%B9%88%E0%B8%99%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2-python-python-flask-357c4239092d
+
+นับรถเดดไลน์ไม่เกิน  15 สิงหาคม
+
+เปิดกล้องโน๊ตบุค
+https://www.geeksforgeeks.org/python-opencv-capture-video-from-camera/

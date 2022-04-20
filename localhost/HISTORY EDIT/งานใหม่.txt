@@ -1,0 +1,24 @@
+ฟิลเตอร์เลือกเวลา
+ไอคอนเลือกตาราง กราฟ
+กำหนดขอบเขตข้อมูล
+เพิ่มช่องเหลือในตาราง
+
+หน้าแรก
+มีสรุป 
+ช่องว่างลานจอด
+ที่จอดชั้นละ 150
+
+แสดลงจำนวนเหลือลานจอดตามสี
+
+แสดงเวลาปัจจุบัน แสดงข้อมูลอัพเดทล่าสุด
+ปุ่มสรุปแสดงกราฟ เข้า ออก จำนวนเหลือ
+
+
+
+เมนู view
+
+
+ชั้น 
+2 กล้อง 1กับ3
+3 กล้อง
+https://emailpsuac-my.sharepoint.com/personal/6010210249_email_psu_ac_th/_layouts/15/onedrive.aspx?id=%2Fpersonal%2F6010210249%5Femail%5Fpsu%5Fac%5Fth%2FDocuments%2FF4%5FFOther&originalPath=aHR0cHM6Ly9lbWFpbHBzdWFjLW15LnNoYXJlcG9pbnQuY29tLzpmOi9nL3BlcnNvbmFsLzYwMTAyMTAyNDlfZW1haWxfcHN1X2FjX3RoL0VpYXhES3N0NEpkRmdndVgzN1p5TTE4Qm9jY2trMTR2eUluaGVZeVVQcjE2REE%5FcnRpbWU9S0hrTkt5UmIyVWc

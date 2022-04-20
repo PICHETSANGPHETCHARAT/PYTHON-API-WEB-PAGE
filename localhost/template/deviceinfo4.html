@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!------------------------------------------------------->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <!-------------------------------------------------------------->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>DEVICE</title>
+    <style>
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .container {
+            font-size: 17px;
+        }
+        
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        .topnav a.active {
+          background-color: #0B93FE;
+          color: white;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <center>
+        <div class="topnav">
+          <a class="active" href="/nstda/parking/home">Back</a>
+          <a href="/nstda/parking/devicehistory4">Device History</a>
+            
+          </div>
+          <br>
+        <br>
+        <!-- ------------------------------------ตาราง---------------------------------------------- -->
+        <div class="container">
+          <h2>กล้องตัวที่ 4</h2> 
+          <br>
+          <img src="{{url_for('static', filename='image/cam1.png')}}" width="400" height="300">
+          
+          <br> 
+          <br>     
+          <table class="table table-striped">
+          
+              <tr class="bg.info">
+                <th  scope="row">หมายเลขกล้อง</th>
+                 <td>B12F03N07</td>
+               
+              </tr>
+              <tr>
+                  <th  scope="row">รุ่น</th>
+                  <td>Panasonic CV-CFW101L</td>
+                  
+              </tr>
+              <tr>
+                  <th  scope="row">ตึกที่ติดตั้ง</th>
+                  <td>12</td>
+                  
+              </tr>
+              <tr>
+                  <th  scope="row">ชั้นที่ติดตั้ง</th>
+                  <td>3</td>
+                  
+              </tr>
+              <tr>
+                <th  scope="row">หน้าที่</th>
+                <td>นับรถที่ออกจากลานจอดรถ</td>
+                
+              </tr>
+              <tr>
+                <th  scope="row">เซนเซอร์รับภาพ</th>
+                <td>1/2.9' 1M CMOS</td>
+                
+              </tr>
+              <tr>
+                <th  scope="row">จำนวนพิกเซล</th>
+                <td>1280 x 720</td>
+                
+              </tr>
+              <tr>
+                <th  scope="row">Frame Rate</th>
+                <td>25 ภาพ/วินาที (PAL)</td>
+                
+              </tr>
+              <tr>
+                <th  scope="row">แสงต่ำสุดที่รับภาพได้</th>
+                <td>0.05 lx, 0 lx (เปิดโหมด IR)</td>
+                
+              </tr>
+              <tr>
+                <th  scope="row">ระบบ Day/Night</th>
+                <td>Auto ICR</td>
+                
+              </tr>
+              <tr>
+                <th  scope="row">เลนส์</th>
+                <td>2.7 - 12 มม.</td>
+                
+              </tr>
+              <tr>
+                <th  scope="row">ระยะIRไกลสุด</th>
+                <td>30 ม.</td>
+                
+              </tr>
+                
+            
+            </table>
+        </div>
+       <!-- ------------------------------------ตาราง---------------------------------------------- -->   
+    </center>
+</body>
+</html>

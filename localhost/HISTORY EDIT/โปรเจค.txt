@@ -1,0 +1,13 @@
+การทำงานของโปรเจคคือทพเซอเวอร์ส่งค่าให้ตัวไพทอนกับตัวอาดูโน่
+ตัวกล้อง
+ kafka
+https://www.9experttraining.com/articles/python-python-คืออะไร
+https://saixiii.com/python-flask-web-application/
+https://mecode.blog/categories/general-knowledge/articles/what-is-framework-and-library
+https://www.mindphp.com/คู่มือ/73-คืออะไร/2187-java-javascript-คืออะไร.html
+http://www.codingbasic.com/html.html
+https://blog.sogoodweb.com/Article/Detail/79237/CSS-คืออะไร-มีประโยชน์-อย่างไร
+https://th.linux-console.net/?p=1430
+
+
+https://www.slideshare.net/yodebpsu/ss-16170522

@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!------------------------------------------------------->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-------------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/slick-loader@1.1.20/slick-loader.min.css">
+    <script src="https://unpkg.com/slick-loader@1.1.20/slick-loader.min.js"></script>
+
+
+    <title>HOME</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        nav {
+            position: fixed;
+            z-index: 99;
+            width: 100%;
+
+            background: #242526;
+        }
+
+        nav .wrapper {
+            position: relative;
+            max-width: 1300px;
+            padding: 0px 30px;
+            height: 70px;
+            line-height: 70px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .wrapper .logo a {
+            color: #f2f2f2;
+            font-size: 30px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .wrapper .nav-links {
+            display: inline-flex;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links li a {
+            color: #f2f2f2;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 9px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            background: #3a3b3c;
+        }
+
+        .nav-links .mobile-item {
+            display: none;
+        }
+
+        .nav-links .drop-menu {
+            position: absolute;
+            background: #242526;
+            width: 180px;
+            line-height: 45px;
+            top: 85px;
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-links li:hover .drop-menu,
+        .nav-links li:hover .mega-box {
+            transition: all 0.3s ease;
+            top: 70px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drop-menu li a {
+            width: 100%;
+            display: block;
+            padding: 0 0 0 15px;
+            font-weight: 400;
+            border-radius: 0px;
+        }
+
+        .mega-box {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            padding: 0 30px;
+            top: 85px;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .mega-box .content {
+            background: #242526;
+            padding: 25px 20px;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .mega-box .content .row {
+            width: calc(25% - 30px);
+            line-height: 45px;
+        }
+
+        .content .row img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content .row header {
+            color: #f2f2f2;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .content .row .mega-links {
+            margin-left: -40px;
+            border-left: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .row .mega-links li {
+            padding: 0 20px;
+        }
+
+        .row .mega-links li a {
+            padding: 0px;
+            padding: 0 20px;
+            color: #d9d9d9;
+            font-size: 17px;
+            display: block;
+        }
+
+        .row .mega-links li a:hover {
+            color: #f2f2f2;
+        }
+
+        .wrapper .btn {
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .wrapper .btn.close-btn {
+            position: absolute;
+            right: 30px;
+            top: 10px;
+        }
+
+        @media screen and (max-width: 970px) {
+            .wrapper .btn {
+                display: block;
+            }
+
+            .wrapper .nav-links {
+                position: fixed;
+                height: 100vh;
+                width: 100%;
+                max-width: 350px;
+                top: 0;
+                left: -100%;
+                background: #242526;
+                display: block;
+                padding: 50px 10px;
+                line-height: 50px;
+                overflow-y: auto;
+                box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.18);
+                transition: all 0.3s ease;
+            }
+
+            /* custom scroll bar */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #242526;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #3a3b3c;
+            }
+
+            #menu-btn:checked~.nav-links {
+                left: 0%;
+            }
+
+            #menu-btn:checked~.btn.menu-btn {
+                display: none;
+            }
+
+            #close-btn:checked~.btn.menu-btn {
+                display: block;
+            }
+
+            .nav-links li {
+                margin: 15px 10px;
+            }
+
+            .nav-links li a {
+                padding: 0 20px;
+                display: block;
+                font-size: 20px;
+            }
+
+            .nav-links .drop-menu {
+                position: static;
+                opacity: 1;
+                top: 65px;
+                visibility: visible;
+                padding-left: 20px;
+                width: 100%;
+                max-height: 0px;
+                overflow: hidden;
+                box-shadow: none;
+                transition: all 0.3s ease;
+            }
+
+            #showDrop:checked~.drop-menu,
+            #showMega:checked~.mega-box {
+                max-height: 100%;
+            }
+
+            .nav-links .desktop-item {
+                display: none;
+            }
+
+            .nav-links .mobile-item {
+                display: block;
+                color: #f2f2f2;
+                font-size: 20px;
+                font-weight: 500;
+                padding-left: 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links .mobile-item:hover {
+                background: #3a3b3c;
+            }
+
+            .drop-menu li {
+                margin: 0;
+            }
+
+            .drop-menu li a {
+                border-radius: 5px;
+                font-size: 18px;
+            }
+
+            .mega-box {
+                position: static;
+                top: 65px;
+                opacity: 1;
+                visibility: visible;
+                padding: 0 20px;
+                max-height: 0px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .mega-box .content {
+                box-shadow: none;
+                flex-direction: column;
+                padding: 20px 20px 0 20px;
+            }
+
+            .mega-box .content .row {
+                width: 100%;
+                margin-bottom: 15px;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .mega-box .content .row:nth-child(1),
+            .mega-box .content .row:nth-child(2) {
+                border-top: 0px;
+            }
+
+            .content .row .mega-links {
+                border-left: 0px;
+                padding-left: 15px;
+            }
+
+            .row .mega-links li {
+                margin: 0;
+            }
+
+            .content .row header {
+                font-size: 19px;
+            }
+        }
+
+        nav input {
+            display: none;
+        }
+
+        .body-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
+            padding: 0 30px;
+        }
+
+        .body-text div {
+            font-size: 45px;
+            font-weight: 600;
+        }
+
+        .nav-links li a:hover:not(.active) {
+            background-color: #242526;
+        }
+
+        .nav-links li a.active {
+            background-color: #ec971f;
+        }
+    </style>
+</head>
+
+<body onload="startTime()">
+    <center>
+        <!------------navbar---------------->
+        <nav>
+            <div class="wrapper" style="max-width: 1600px;">
+                <div class="logo">
+                    <a href="/nstda/parking/home">สวทช</a>
+                    <a id="show_email" href="#" style="font-size: 15px; pointer-events: none;cursor: default;">
+                        {% if current_user.is_authenticated %}
+                            (   {{  (roles_required)[1]  }}  )
+                        {% endif %}
+                    </a>
+                </div>
+                <input type="radio" name="slider" id="menu-btn" />
+                <input type="radio" name="slider" id="close-btn" />
+                <ul class="nav-links">
+                    <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+                    <li id="menu_home"><a class="active" href="/nstda/parking/home">หน้าแรก</a></li>
+
+                    {% if current_user.is_authenticated %}
+
+                            {% if current_user.role == 'advance' %}
+                                <li id="menu_update"><a href="/nstda/parking/update">เพิ่มจำนวนรถ</a></li>
+                            {% endif %}
+
+                            {% if current_user.role == 'admin' %}
+                                <li id="menu_update"><a href="/nstda/parking/update">เพิ่มจำนวนรถ</a></li>
+                                <li id="menu_history"><a href="/nstda/parking/history">จัดการจำนวนรถ</a></li>
+                                <li id="menu_item">
+                                    <a href="#" class="desktop-item">กล้อง</a>
+                                    <input type="checkbox" id="showDrop" />
+                                    <label for="showDrop" class="mobile-item">กล้อง</label>
+                                    <ul class="drop-menu">
+                                        <li><a href="/nstda/parking/deviceinfo1">กล้อง 1</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo2">กล้อง 2</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo3">กล้อง 3</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo4">กล้อง 4</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo5">กล้อง 5</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo6">กล้อง 6</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo7">กล้อง 7</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo8">กล้อง 8</a></li>
+                                    </ul>
+                                </li>
+                                <li id="menu_adddevice"><a href="/nstda/parking/adddevice1">เพิ่มกล้อง</a></li>
+                                <li id="menu_users"><a href="/nstda/parking/admin/users">จัดการผู้ใช้งาน</a></li>
+                            {% endif %}
+
+                    {% endif %}
+
+                    {% if not current_user.is_authenticated %}
+                        <li id="menu_signup"><a href="/nstda/parking/signup">ลงทะเบียน</a></li>
+                    {% endif %}
+
+                    <li id="menu_contact"><a href="/nstda/parking/contact">ติดต่อ</a></li>
+
+                    {% if not current_user.is_authenticated %}
+                        <li id="menu_login"><a href="/nstda/parking/login">Login</a></li>
+                    {% endif %}
+
+                    {% if current_user.is_authenticated %}
+                    <li id="menu_logout"><a href="/nstda/parking/logout">Logout</a></li>
+                    {% endif %}
+                </ul>
+                <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+            </div>
+        </nav>
+
+        
+
+
+        <br><br><br><br>
+        <!------------navbar---------------->
+        <div id="txt"></div>
+        <br />
+        <br />
+        <div>
+            <h2>
+                <button id="process_f2" type="button" class="btn btn-warning btn-lg">ชั้น 2</button>
+                <button id="process_f3" type="button" class="btn btn-warning btn-lg">ชั้น 3</button>
+                <button id="process_f4" type="button" class="btn btn-warning btn-lg">ชั้น 4</button>
+                <button id="process_graph" type="button" class="btn btn-warning btn-lg">สรุปผล</button>
+            </h2>
+        </div>
+        <br />
+        <br />
+        <br />
+
+
+        <div id="content_page">
+
+
+
+            <!------------กราฟ---------------->
+            <div id="container" style="width: 90%; height: 500px">
+                <canvas id="myChart" width="1120" height="400"
+                    style="display: block; height: 600px; width: 1120"></canvas>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <h2>
+                <div id="dashboard">
+
+
+                    <div class="container-fluid" style="width: 100%">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div id="result_in" style="border: 3px dashed #72afec; background-color: #72afec">
+                                    เข้า:
+                                    <div id="result_in_text"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div id="result_out" style="border: 3px dashed #ff4d55; background-color: #ff4d55">
+                                    ออก:
+                                    <div id="result_out_text"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div id="result_em" style="border: 3px dashed #ffffe0; background-color: #ffffe0">
+                                    ว่าง:
+                                    <div id="result_em_text"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h2>
+            <!------------เวลาอัพเดทข้อมูลล่าสุด----------------->
+            <div id="currentime"></div>
+
+
+
+        </div>
+
+        <!------------ซ่อนฟังชั่นอื่น---------------->
+        <script>
+            // $("#show_email").hide();
+            SlickLoader.enable();
+            $("#content_page").hide();
+            $("#container").hide();
+            $("#result_in").hide();
+            $("#result_out").hide();
+            $("#result_em").hide();
+            $("#currentime").hide();
+            $("#myChart").hide();
+            $(document).ready(async function () {
+                await process_main('f2')
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+                // console.log('{{roles_required}}')
+            });
+            // Onclick ========================================================
+            document.getElementById('process_f2').onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await process_main('f2')
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+
+                // document.getElementById('main').innerHTML = html_insert
+                // $("#content_page").fadeIn();
+                // SlickLoader.disable();
+            }
+            document.getElementById('process_f3').onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await process_main('f3')
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById('process_f4').onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await process_main('f4')
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById('process_graph').onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                document.getElementById('container').innerHTML = `
+                        <canvas id="myChart" width="1120" height="400"
+                        style="display: block; height: 600; width: 1120">
+                        </canvas>
+                    `
+                await graph();
+                // await $("#content_page").fadeIn();
+                // await SlickLoader.disable();
+            }
+            // ====================================================================
+        </script>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <script>
+            // หา Error ----------------------------------------------------------------------------------------------------
+            async function find_error(api_f_number) {
+                return await $.ajax({
+                    url: api_f_number,
+                    headers: { Authorization: "Basic " + "c29yYXdpdDoxcTJ3M2U0cjV0" },
+                    method: "GET",
+                    // contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: async function (data) {
+                        // console.log(data);
+                    },
+                });
+            }
+            // ----------------------------------------------------------------------------------------------------
+            // หา ค่าที่จอดรถทั้งหมด ----------------------------------------------------------------------------------
+            async function find_empty(api_f_number) {
+                return await $.ajax({
+                    url: api_f_number,
+                    headers: { Authorization: "Basic " + "c29yYXdpdDoxcTJ3M2U0cjV0" },
+                    method: "GET",
+                    // contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: async function (data) {
+                        // console.log(data);
+                    },
+                });
+            }
+            // ----------------------------------------------------------------------------------------------------
+            // หา ค่า Count IN/OUt RealTime  -----------------------------------------------------------------------
+            async function find_count_in_out(api_f_number) {
+                return await $.ajax({
+                    url: api_f_number,
+                    headers: { Authorization: "Basic " + "c29yYXdpdDoxcTJ3M2U0cjV0" },
+                    method: "GET",
+                    // contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: async function (data) {
+                        // console.log(data);
+                    },
+                });
+            }
+                // ----------------------------------------------------------------------------------------------------
+        </script>
+
+        <!-----------------------------Process main------------------------------------->
+        <script>
+            var process_main_loop;
+            var loop_graph;
+
+            list_api_url = {
+                f2: "https://203.185.67.133:3999/api/getdataf2/history/0/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite",
+                f3: "https://203.185.67.133:3999/api/getdataf3/history/0/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite",
+                f4: "https://203.185.67.133:3999/api/getdataf4/history/0/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite",
+            };
+            url_offset = "https://203.185.67.133:3999/api/user/6123c059c1d59ed31a13d2f5/data/61560e2a19bde62969949307/owner/readwrite"
+            url_api_empty_number = "https://203.185.67.133:3999/api/user/6123c059c1d59ed31a13d2f5/data/61558acd54f166995eb2d284/owner/readwrite";
+            list_floor = {
+                f2: "02",
+                f3: "03",
+                f4: "04",
+            };
+            list_floor_sort = ['f2', 'f3', 'f4']
+
+            async function process_main(f_number) {
+
+                clearTimeout(process_main_loop);
+                clearTimeout(loop_graph);
+                $("#container").hide();
+                $("#myChart").hide();
+
+                $("#dashboard").show();
+
+                // Updata ===================== 11-10-64 ================================
+                // ======================================================================
+                //ดึงข้อมูลรถเข้า 
+                // -------------------------------------------------------------------------------------------------------------------------------
+                // Step 1  หา Error
+                let api_f_number = url_offset;
+                let error_value = await find_error(api_f_number);
+                async function loop_check_error() {
+                    for (let index = 0; index < error_value["data"].length; index++) {
+                        if (error_value["data"][index]["floor"] == list_floor[f_number]) {
+                            return error_value["data"][index]["count_in_latest"] - error_value["data"][index]["count_out_latest"] - error_value["data"][index]["occupied"];
+                        }
+                    }
+                }
+                error_value = await loop_check_error();
+                // -------------------------------------------------------------------------------------------------------------------------------
+                // Step 2  ดึงค่าที่จอดรถทั้งหมดของชั้น
+                let api_empty_number = url_api_empty_number;
+                let empty_value = await find_empty(api_empty_number);
+                async function loop_check_empty() {
+                    for (let index = 0; index < empty_value["data"].length; index++) {
+                        if (empty_value["data"][index]["floor"] == list_floor[f_number]) {
+                            return empty_value["data"][index]["empty_parking"];
+                        }
+                    }
+                }
+                empty_value = await loop_check_empty();
+                // console.log("Empty floor: " + empty_value);
+                // -------------------------------------------------------------------------------------------------------------------------------
+                // Step 3  ดึงค่าที่ที่จอดรถ In/Out
+                let api_count_number = list_api_url[f_number];
+                let count_value = await find_count_in_out(api_count_number);
+                // -------------------------------------------------------------------------------------------------------------------------------
+                // Step 4  คำนวนหาพื้นที่จอดรถ ที่ยังว่างอยู่
+                // สูตร Empty = พื้นที่จอดรถทั้งหมด - ( ( Count-In - Count-OUT) - Error )
+                empty_number = empty_value - (count_value[0]["count_IN"] - count_value[0]["count_OUT"] - error_value);
+                // console.log("====================================================================");
+                // console.log("Error: " + error_value);
+                // console.log("Empty floor: " + empty_value);
+                // console.log("Count_In:" + count_value[0]["count_IN"]);
+                // console.log("Count_Out:" + count_value[0]["count_OUT"]);
+                // console.log("Empty: " + "พื้นที่จอดรถทั้งหมด - ( ( Count-In - Count-OUT) - Error )");
+                // console.log("Empty: " + empty_value + " - ( (" + count_value[0]["count_IN"] + " - " + count_value[0]["count_OUT"] + " ) - " + error_value + " )");
+                // console.log("Empty: " + empty_number);
+                // console.log("====================================================================");
+                // -------------------------------------------------------------------------------------------------------------------------------
+                // Step 5  Inner to HTML
+                document.getElementById("result_in_text").innerHTML = count_value[0]["count_IN"];
+                document.getElementById("result_out_text").innerHTML = count_value[0]["count_OUT"];
+                document.getElementById("result_em_text").innerHTML = empty_number + " => จอดไปแล้ว " + (empty_value - empty_number) + "/" + empty_value + " คัน";
+                document.getElementById("currentime").innerHTML = "Update Time: " + count_value[0]["currentTime"]
+                if (empty_number >= 51) {
+                    // สีแดง
+                    document.getElementById("result_em_text").style.backgroundColor = "#99FF33";
+                    document.getElementById("result_em").style.backgroundColor = "#99FF33";
+                    document.getElementById("result_em").style.borderColor = "#99FF33";
+                    console.log("สีเขียว");
+                } else if (empty_number < 50 && empty_number >= 11) {
+                    // สีเหลือง
+                    document.getElementById("result_em_text").style.backgroundColor = "#FFFF33";
+                    document.getElementById("result_em").style.backgroundColor = "#FFFF33";
+                    document.getElementById("result_em").style.borderColor = "#FFFF33";
+                    console.log("สีเหลือง");
+                } else if (empty_number < 10) {
+                    // สีเขียว
+                    document.getElementById("result_em_text").style.backgroundColor = "#FF0000";
+                    document.getElementById("result_em").style.backgroundColor = "#FF0000";
+                    document.getElementById("result_em").style.borderColor = "#FF0000";
+                    console.log("สีเเดง");
+                }
+                // -------------------------------------------------------------------------------------------------------------------------------
+                // Step 6  Show DIV HTML
+                $("#result_in").show();
+                $("#result_out").show();
+                $("#result_em").show();
+                $("#currentime").show();
+                // -------------------------------------------------------------------------------------------------------------------------------
+                // Step 7 Loop function ----------------------------------------------------------------------------------------------------------
+                var delayInMilliseconds = 5000; //5 second
+                process_main_loop = setTimeout(function () {
+                    console.log("Loop " + f_number + " running");
+                    process_main(f_number)
+                }, delayInMilliseconds);
+                // -------------------------------------------------------------------------------------------------------------------------------
+            }
+        </script>
+        <br />
+        <!---------------------------------กราฟ------------------------------------------------->
+        <script>
+            function graph() {
+                clearTimeout(process_main_loop);
+                clearTimeout(loop_graph);
+
+                $("#container").show();
+                $("#myChart").show();
+                $("#result_in").hide();
+                $("#result_out").hide();
+                $("#result_em").hide();
+                $("#currentime").hide();
+                $("#dashboard").hide();
+
+
+                $(document).ready(function () {
+                    showGraph();
+                    console.log("กราฟแสดง");
+                });
+                async function showGraph() {
+
+                    list_f_in = []
+                    list_f_out = []
+                    list_f_empty = []
+                    list_f_empty_full = []
+                    // GET value_offset All ==================================
+                    value_offset = await $.ajax({
+                        url: url_offset,
+                        headers: { Authorization: "Basic " + "c29yYXdpdDoxcTJ3M2U0cjV0" },
+                        method: "GET",
+                        dataType: "json",
+                        success: async function (data) {
+                            return data
+                        },
+                    });
+                    // ======================================================
+                    // GET value_empty All ==================================
+                    value_empty = await $.ajax({
+                        url: url_api_empty_number,
+                        headers: { Authorization: "Basic " + "c29yYXdpdDoxcTJ3M2U0cjV0" },
+                        method: "GET",
+                        dataType: "json",
+                        success: async function (data) {
+                            return data
+                        },
+                    });
+                    // ======================================================
+                    //  Loop ดึงข้อมูลแต่ละชั้น และ คำนวนค่าพื้นที่จอดรถทั้งหมดจากค่า พื้นที่จอดรถทั้งหมดและค่า OFFSET เพื่อ Add ลง List 
+                    for (let index = 0; index < list_floor_sort.length; index++) {
+                        let empty_get_value;
+                        let error_get_value;
+                        let empty_number;
+                        // Loop หาข้อมูล ค่าError จากที่ Get มาทั้งหมด 
+                        for (let index2 = 0; index2 < value_offset["data"].length; index2++) {
+                            if (value_offset["data"][index2]["floor"] == list_floor[list_floor_sort[index]]) {
+                                error_get_value = (value_offset["data"][index2]["count_in_latest"] - value_offset["data"][index2]["count_out_latest"] - value_offset["data"][index2]["occupied"])
+                                break
+                            }
+                        }
+                        // Loop หาข้อมูล ค่าพื้นที่จอดรถทั้งหมด จากที่ Get มาทั้งหมด 
+                        for (let index3 = 0; index < value_empty["data"].length; index3++) {
+                            if (value_empty["data"][index3]["floor"] == list_floor[list_floor_sort[index]]) {
+                                empty_get_value = (value_empty["data"][index3]["empty_parking"]);
+                                break
+                            }
+                        }
+                        // Get ข้อมูล ค่า In/Out และ คำนวนหาค่า พื้นที่จอดรถทั้งหมด จากนั้น Add ลง list  และนำไปใส่ ChartJS ตอนหลัง
+                        await $.ajax({
+                            url: list_api_url[list_floor_sort[index]],
+                            headers: { Authorization: "Basic " + "c29yYXdpdDoxcTJ3M2U0cjV0" },
+                            method: "GET",
+                            dataType: "json",
+                            success: async function (data) {
+                                list_f_in.push(data[0]["count_IN"])
+                                list_f_out.push(data[0]["count_OUT"])
+                                empty_number = empty_get_value - (data[0]["count_IN"] - data[0]["count_OUT"] - error_get_value);
+                                list_f_empty.push(empty_number)
+                                list_f_empty_full.push(empty_get_value - empty_number)
+                            },
+                        });
+                    }
+                    // =============================================================================
+                    let chartdata = {
+                        labels: ["F2", "F3", "F4"],
+                        datasets: [
+                            {
+                                label: "IN",
+                                backgroundColor: "#1bccd5ad",
+                                borderColor: "#0A0B0B",
+                                borderWidth: 1,
+                                data: list_f_in,
+                                datalabels: {
+                                    color: "black",
+                                    anchor: "end",
+                                    align: "top",
+                                },
+                                stack: 'in',
+                            },
+                            {
+                                label: "OUT",
+                                backgroundColor: "#F70000",
+                                borderColor: "#0A0B0B",
+                                borderWidth: 1,
+                                data: list_f_out,
+                                datalabels: {
+                                    color: "black",
+                                    anchor: "end",
+                                    align: "top",
+                                },
+                                stack: 'out',
+                            },
+                            {
+                                label: "EMPTY",
+                                backgroundColor: "#B5B8BB",
+                                borderColor: "#0A0B0B",
+                                borderWidth: 1,
+                                data: list_f_empty,
+                                datalabels: {
+                                    color: "black",
+                                    anchor: "end",
+                                    align: "top",
+                                },
+                                stack: 'empty',
+                            }, {
+                                label: "TEST-พื้นที่จอดรถที่ใช้งานไปแล้ว",
+                                backgroundColor: "#ADD344",
+                                borderColor: "#0A0B0B",
+                                borderWidth: 1,
+                                data: list_f_empty_full,
+                                datalabels: {
+                                    color: "black",
+                                    anchor: "end",
+                                    align: "top",
+                                },
+                                stack: 'empty_test',
+                            },
+                            {
+                                label: "TEST-พื้นที่จอดรถคงเหลือ",
+                                backgroundColor: "#8362B6",
+                                borderColor: "#0A0B0B",
+                                borderWidth: 1,
+                                data: list_f_empty,
+                                datalabels: {
+                                    color: "black",
+                                    anchor: "end",
+                                    align: "top",
+                                },
+                                stack: 'empty_test',
+                            },
+                        ],
+                    };
+
+                    let graphTarget = $("#myChart");
+                    let barGraph = await new Chart(graphTarget, {
+                        type: "bar",
+                        data: chartdata,
+                        plugins: [ChartDataLabels],
+                        options: {
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: "การเข้าออกของรถยนต์",
+                                    fontSize: 40,
+                                },
+                            },
+                            legend: {
+                                display: true,
+                                labels: {
+                                    fontSize: 20,
+                                },
+                            },
+                            responsive: true,
+                            // maintainAspectRatio: false,
+                            interaction: {
+                                intersect: false,
+                            },
+                            scales: {
+                                x: {
+                                    stacked: true,
+                                },
+                                y: {
+                                    stacked: true
+                                }
+                            }
+                        }
+                    });
+                    await $("#content_page").fadeIn();
+                    await SlickLoader.disable();
+                }
+
+                // Loop function -------------------------------------------------------------------
+                // var delayInMilliseconds = 5000; //5 second
+                // loop_graph = setTimeout(function () {
+                //     console.log("Loop graph running");
+                //     graph();
+                // }, delayInMilliseconds);
+                // Loop function -------------------------------------------------------------------
+            }
+        </script>
+        <!---------------------------------กราฟ------------------------------------------------->
+        <!---------------------------------นาฬิกา------------------------------------------------->
+        <script>
+            function startTime() {
+                const today = new Date();
+                let h = today.getHours();
+                let m = today.getMinutes();
+                let s = today.getSeconds();
+                m = checkTime(m);
+                s = checkTime(s);
+                document.getElementById("txt").innerHTML = h + ":" + m + ":" + s;
+                setTimeout(startTime, 1000);
+            }
+
+            function checkTime(i) {
+                if (i < 10) {
+                    i = "0" + i;
+                } // add zero in front of numbers < 10
+                return i;
+            }
+        </script>
+
+    </center>
+    <br />
+    <br />
+    <small class="form-text text-muted">Version 3.0.0</small>
+</body>
+
+</html>

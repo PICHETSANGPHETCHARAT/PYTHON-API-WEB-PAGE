@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!------------------------------------------------------->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <!-------------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+  
+    <title>HISTORY</title>
+    <style>
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        .topnav a.active {
+          background-color: #0B93FE;
+          color: white;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <!-- --------------------------------------หัว-------------------------------------------- -->
+        <div class="topnav">
+            <a class="active" href="http://127.0.0.1:5000/home">Home</a>
+          </div>
+          <br />
+        <p>Parking Floor</p>
+        <br />
+        <!-- ----------------------------------ปุ่ม------------------------------------------------ -->
+    <div>
+        <button class="btn btn-primary" onclick="table2();">Floor 2</button>
+        <button class="btn btn-primary" onclick="table3();">Floor 3</button>
+        <button class="btn btn-primary" onclick="table4();">Floor 4</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+        <button id = "btgraph2" class="btn btn-primary" onclick="graph2();">graph</button>
+        <button id = "bttable2" class="btn btn-primary" onclick="table2();">table</button>
+        <button id = "btgraph3" class="btn btn-primary" onclick="graph3();">graph</button>
+        <button id = "bttable3" class="btn btn-primary" onclick="table3();">table</button> 
+        <button id = "btgraph4" class="btn btn-primary" onclick="graph4();">graph</button>
+        <button id = "bttable4" class="btn btn-primary" onclick="table4();">table</button>      
+    </div>
+     
+    <!-- --------------------------------ตาราง-------------------------------------------------- -->
+    <table id="myTable_result" >
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Car In</th>
+                <th>Car Out</th>
+                <th>Empty Parking</th>
+            </tr>
+        </thead>
+        <tbody id="loop_mytable">
+
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="width: 40%">
+        <canvas id="myChart" width="1120" height="600" style="display: block; height: 600; width: 1120"></canvas>
+    </div>
+    <script>
+        $('#myTable_result').hide();
+        $('#myChart').hide();
+        
+    </script>
+    <!-- ---------------------------------------------------------------------------------- -->
+    <script>
+         $('#bttable2').hide();
+         $('#bttable3').hide();
+         $('#bttable4').hide();
+
+         $('#btgraph2').hide();
+         $('#btgraph3').hide();
+         $('#btgraph4').hide();
+    </script>
+
+<!-- ------------------------------------แสดงข้อมูลตารางชั้น 2---------------------------------------------- -->
+    <script>
+        function table2(){
+            $('#myChart').hide();
+            $('#myTable_result').show();
+
+            $('#bttable2').show();
+            $('#btgraph2').show();
+            //
+            $('#bttable3').hide();
+            $('#btgraph3').hide();
+            //
+            $('#bttable4').hide();
+            $('#btgraph4').hide();
+
+            $('#myTable_result_length').show();
+            $('#myTable_result_filter').show();
+            $('#myTable_result_info').show();
+            $('#myTable_result_paginate').show();
+
+        fetch('http://127.0.0.1:5000/getdataf2')
+                            .then(function (response) {         //แปลงข้อมูลเป็น json
+                                return response.json();
+                            })
+                            .then(function (data) {         //แสดงข้อมูล
+                                appendData2(data);
+                            })
+                            .catch(function (err) {
+                                 console.log('error: ' + err);
+                           });
+                        function appendData2(data) {
+                            $('#myTable_result').show();
+                            var table = document.getElementById('loop_mytable') 
+                            table.innerHTML = ""
+                            for (var y = 0; y < data.length; y++){
+                                var em = ((150 - data[y].count_IN['value']) - data[y].count_OUT['value'])
+                                var row = `<tr>
+                                    <td>${data[y].currentTime['value']}</td>
+                                    <td>${data[y].count_IN['value']}</td>
+                                    <td>${data[y].count_OUT['value']}</td>
+                                    <td>${em}</td>
+                                    </tr>`
+                                table.innerHTML += row 
+                            } 
+                            $('#myTable_result').DataTable();
+                        } 
+                    } 
+    </script>
+    <!---------------------------------กราฟ2------------------------------------------------->
+    <script>
+        function graph2() {
+            $('#myChart').show();
+            $('#myTable_result').hide();
+            $('#myTable_result_length').hide();
+            $('#myTable_result_filter').hide();
+            $('#myTable_result_info').hide();
+            $('#myTable_result_paginate').hide();
+            
+            
+        let valueIn2 = [];
+        let valueOut2 = [];
+        let valueCurrentTime2 = [];
+        
+        var car = 150;
+        var f2_in; 
+        var f2_out;
+        var f2_em;
+        var f2_currentTime;
+        
+        $(document).ready(function () {
+            showGraph();
+        });
+        function showGraph() {
+            $.get("http://127.0.0.1:5000/getdataf2", function (data2) {
+                console.log(data2);
+                f2_in = data2[data2.length - 1].count_IN["value"];
+                f2_out = data2[data2.length - 1].count_OUT["value"];
+                f2_currentTime = data2[data2.length - 1].currentTime["value"];
+                f2_em = car - data2[data2.length - 1].count_IN["value"] + data2[data2.length - 1].count_OUT["value"];
+                
+                            console.log(f2_in);
+                            console.log(f2_out);
+                            console.log(f2_em);
+                            console.log(f2_currentTime);
+                            
+                            
+                            const data = {
+                                labels: [
+                                    'จำนวนรถเข้า',
+                                    'จำนวนรถออก',
+                                    'จำนวนลานจอดว่าง'
+                                    
+                                ],
+                                datasets: [{
+                                    label: 'การเข้าออกของรถยนต์',
+                                    data: [f2_in, f2_out, f2_em],
+                                    backgroundColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(255, 205, 86)'
+                                    ],
+                                    hoverOffset: 4
+                                }]
+                                };
+                            let graphTarget = $("#myChart");
+                            let barGraph = new Chart(graphTarget, {
+                                type: 'doughnut',
+                                data: data,
+                                    legend: {
+                                        display: true,
+                                        labels: {
+                                            fontSize: 20,
+                                        },
+                                    },
+                                    responsive: true,
+                                    title: {
+                                        display: true,
+                                        text: "การเข้าออกของรถยนต์",
+                                        fontSize: 40,
+                                    },
+                                },
+                            );
+                        });
+                    };
+                };
+            
+        
+    
+    </script>
+<!---------------------------------กราฟ2------------------------------------------------->  
+    <!-- ------------------------------------แสดงข้อมูลตารางชั้น 3---------------------------------------------- -->   
+    <script>
+        function table3(){
+            $('#myChart').hide();
+            $('#myTable_result').show();
+
+            $('#bttable2').hide();
+            $('#btgraph2').hide();
+            //
+            $('#bttable3').show();
+            $('#btgraph3').show();
+            //
+            $('#bttable4').hide();
+            $('#btgraph4').hide();
+
+            $('#myTable_result_length').show();
+            $('#myTable_result_filter').show();
+            $('#myTable_result_info').show();
+            $('#myTable_result_paginate').show();
+
+        fetch('http://127.0.0.1:5000/getdataf3')
+                            .then(function (response) {         //แปลงข้อมูลเป็น json
+                                return response.json();
+                            })
+                            .then(function (data) {         //แสดงข้อมูล
+                                appendData3(data);
+                            })
+                            .catch(function (err) {
+                                 console.log('error: ' + err);
+                           });
+                        function appendData3(data) {
+                            $('#myTable_result').show();
+                            var table = document.getElementById('loop_mytable') 
+                            table.innerHTML = ""
+                            for (var y = 0; y < data.length; y++){
+                                var em = ((150 - data[y].count_IN['value']) - data[y].count_OUT['value'])
+                                var row = `<tr>
+                                    <td>${data[y].currentTime['value']}</td>
+                                    <td>${data[y].count_IN['value']}</td>
+                                    <td>${data[y].count_OUT['value']}</td>
+                                    <td>${em}</td>
+                                    </tr>`
+                                table.innerHTML += row 
+                            } 
+                            $('#myTable_result').DataTable();
+                        }
+                    }  
+    </script>
+    <!---------------------------------กราฟ3------------------------------------------------->
+    <script>
+        function graph3() {
+            $('#myChart').show();
+            $('#myTable_result').hide();
+            $('#myTable_result_length').hide();
+            $('#myTable_result_filter').hide();
+            $('#myTable_result_info').hide();
+            $('#myTable_result_paginate').hide();
+            
+            
+        let valueIn3 = [];
+        let valueOut3 = [];
+        let valueCurrentTime3 = [];
+        
+        var car = 150;
+        var f3_in = []; 
+        var f3_out = [];
+        var f3_em ;
+        var f3_currentTime = [];
+        
+        $(document).ready(function () {
+            showGraph();
+        });
+        function showGraph() {
+            $.get("http://127.0.0.1:5000/getdataf3", function (data3) {
+                console.log(data3);
+                f3_in = data3[data3.length - 1].count_IN["value"];
+                f3_out = data3[data3.length - 1].count_OUT["value"];
+                f3_currentTime = data3[data3.length - 1].currentTime["value"];
+                f3_em = car - data3[data3.length - 1].count_IN["value"] + data3[data3.length - 1].count_OUT["value"];
+                
+               // for (var y = 0; y < data3.length; y++){
+                //    f3_in = data3[y].count_IN["value"];
+                //    f3_out = data3[y].count_OUT["value"];
+                //    f3_currentTime = data3[y].currentTime["value"];
+               // }
+                            console.log(f3_in);
+                            console.log(f3_out);
+                            console.log(f3_em);
+                            console.log(f3_currentTime);
+                            
+                            const labels = [];
+                            const data = {
+                            labels: labels,
+                            datasets: [
+                                {
+                                label: 'Dataset 1',
+                                data: [f3_in],
+                                borderColor: 'rgba(54, 162, 235, 0.5)',
+                                backgroundColor: 'rgb(54, 162, 235)',
+                                },
+                                {
+                                label: 'Dataset 2',
+                                data: [f3_out],
+                                borderColor: 'rgba(54, 162, 235, 0.5)',
+                                backgroundColor: 'rgb(54, 162, 235)',
+                                },
+                                {
+                                label: 'Dataset 3',
+                                data: [f3_em],
+                                borderColor: 'rgba(54, 162, 235, 0.5)',
+                                backgroundColor: 'rgb(54, 162, 235)',
+                                }
+                            ]
+                            };      
+                            let graphTarget = $("#myChart");
+                            let barGraph = new Chart(graphTarget, {
+                                type: 'line',
+                                data: data,
+                                    legend: {
+                                        display: true,
+                                        labels: {
+                                            fontSize: 20,
+                                        },
+                                    },
+                                    responsive: true,
+                                    title: {
+                                        display: true,
+                                        text: "การเข้าออกของรถยนต์",
+                                        fontSize: 40,
+                                    },
+                                },
+                            );
+                        });
+                    };
+                };
+            
+        
+    
+    </script>
+<!---------------------------------กราฟ3------------------------------------------------->  
+    <!-- ------------------------------------แสดงข้อมูลตารางชั้น 4---------------------------------------------- --> 
+    <script>
+        function table4(){
+            $('#myChart').hide();
+            $('#myTable_result').show();
+
+            $('#bttable2').hide();
+            $('#btgraph2').hide();
+            //
+            $('#bttable3').hide();
+            $('#btgraph3').hide();
+            //
+            $('#bttable4').show();
+            $('#btgraph4').show();
+            
+            $('#myTable_result_length').show();
+            $('#myTable_result_filter').show();
+            $('#myTable_result_info').show();
+            $('#myTable_result_paginate').show();
+
+        fetch('http://127.0.0.1:5000/getdataf4')
+                            .then(function (response) {         //แปลงข้อมูลเป็น json
+                                return response.json();
+                            })
+                            .then(function (data) {         //แสดงข้อมูล
+                                appendData4(data);
+                            })
+                            .catch(function (err) {
+                                 console.log('error: ' + err);
+                           });
+                        function appendData4(data) {
+                            $('#myTable_result').show();
+                            var table = document.getElementById('loop_mytable') 
+                            table.innerHTML = ""
+                            for (var y = 0; y < data.length; y++){
+                                var em = ((150 - data[y].count_IN['value']) - data[y].count_OUT['value'])
+                                var row = `<tr>
+                                    <td>${data[y].currentTime['value']}</td>
+                                    <td>${data[y].count_IN['value']}</td>
+                                    <td>${data[y].count_OUT['value']}</td>
+                                    <td>${em}</td>
+                                    </tr>`
+                                table.innerHTML += row 
+                            } 
+                            $('#myTable_result').DataTable();
+                        } 
+                    } 
+    </script>
+     <!---------------------------------กราฟ3------------------------------------------------->
+     <script>
+        function graph4() {
+            $('#myChart').show();
+            $('#myTable_result').hide();
+            $('#myTable_result_length').hide();
+            $('#myTable_result_filter').hide();
+            $('#myTable_result_info').hide();
+            $('#myTable_result_paginate').hide();
+            
+            
+        let valueIn4 = [];
+        let valueOut4 = [];
+        let valueCurrentTime4 = [];
+        
+        var car = 150;
+        var f4_in; 
+        var f4_out;
+        var f4_em;
+        var f4_currentTime;
+        
+        $(document).ready(function () {
+            showGraph();
+        });
+        function showGraph() {
+            $.get("http://127.0.0.1:5000/getdataf3", function (data4) {
+                console.log(data4);
+                f4_in = data4[data4.length - 1].count_IN["value"];
+                f4_out = data4[data4.length - 1].count_OUT["value"];
+                f4_currentTime = data4[data4.length - 1].currentTime["value"];
+                f4_em = car - data4[data4.length - 1].count_IN["value"] + data4[data4.length - 1].count_OUT["value"];
+                
+                            console.log(f4_in);
+                            console.log(f4_out);
+                            console.log(f4_em);
+                            console.log(f4_currentTime);
+                            
+                            
+                            const data = {
+                                labels: [
+                                    'จำนวนรถเข้า',
+                                    'จำนวนรถออก',
+                                    'จำนวนลานจอดว่าง'
+                                    
+                                ],
+                                datasets: [{
+                                    label: 'My First Dataset',
+                                    data: [f4_in, f4_out, f4_em],
+                                    backgroundColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(255, 205, 86)'
+                                    ],
+                                    hoverOffset: 4
+                                }]
+                                };
+                            let graphTarget = $("#myChart");
+                            let barGraph = new Chart(graphTarget, {
+                                type: 'doughnut',
+                                data: data,
+                                    legend: {
+                                        display: true,
+                                        labels: {
+                                            fontSize: 20,
+                                        },
+                                    },
+                                    responsive: true,
+                                    title: {
+                                        display: true,
+                                        text: "การเข้าออกของรถยนต์",
+                                        fontSize: 40,
+                                    },
+                                },
+                            );
+                        });
+                    };
+                };
+            
+        
+    
+    </script>
+<!---------------------------------กราฟ4------------------------------------------------->   
+    </center>
+</body>
+</html>

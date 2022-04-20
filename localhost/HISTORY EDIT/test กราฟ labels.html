@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TEST</title>
+        <style>
+            .container {
+                width: 75%;
+                margin: 15px auto;
+            }
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+        <!-- ตัวนี้สำคัญเป็น plugin สำหรับ chartjs ไว้ทำพวก labels ในกราฟ -->
+        <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+        <!-- =================================================================================================== -->
+    </head>
+    <body>
+        <div class="container">
+            <h2>Chart.js — Pie Chart TEST</h2>
+            <div style="height: 400px">
+                <canvas id="myChart" style="display: block" class="chartjs-render-monitor"></canvas>
+            </div>
+        </div>
+    </body>
+    <script>
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myChart = new Chart(ctx, {
+            type: "pie",
+            data: {
+                labels: ["January", "February", "March"],
+                datasets: [
+                    {
+                        data: [50445, 33655, 15900],
+                        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                // ขั้นตอนการทำ labels =========================================
+                plugins: {
+                    labels: {
+                        render: "percentage",
+                        fontColor: "white",
+                        fontSize: 20,
+                        precision: 2,
+                    },
+                },
+                // ขั้นตอนการทำ labels =========================================
+            },
+        });
+    </script>
+</html>

@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!------------------------------------------------------->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/datetime/1.1.1/css/dataTables.dateTime.min.css" />
+    <!-------------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-------------------------------------------------------------->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.esm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.esm.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/helpers.esm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/helpers.esm.min.js"></script>
+    <!-------------------------------------------------------------->
+    <script src="https://kit.fontawesome.com/64ed604624.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/luxon/1.25.0/luxon.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.17/dayjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.17/plugin/utc.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <!------------------------highchrat-------------------------->
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+        
+    
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/slick-loader@1.1.20/slick-loader.min.css">
+    <script src="https://unpkg.com/slick-loader@1.1.20/slick-loader.min.js"></script>
+    <title>HISTORY</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        nav {
+            position: fixed;
+            z-index: 99;
+            width: 100%;
+
+            background: #242526;
+        }
+
+        nav .wrapper {
+            position: relative;
+            max-width: 1300px;
+            padding: 0px 30px;
+            height: 70px;
+            line-height: 70px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .wrapper .logo a {
+            color: #f2f2f2;
+            font-size: 30px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .wrapper .nav-links {
+            display: inline-flex;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links li a {
+            color: #f2f2f2;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 9px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            background: #3A3B3C;
+        }
+
+        .nav-links .mobile-item {
+            display: none;
+        }
+
+        .nav-links .drop-menu {
+            position: absolute;
+            background: #242526;
+            width: 180px;
+            line-height: 45px;
+            top: 85px;
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-links li:hover .drop-menu,
+        .nav-links li:hover .mega-box {
+            transition: all 0.3s ease;
+            top: 70px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drop-menu li a {
+            width: 100%;
+            display: block;
+            padding: 0 0 0 15px;
+            font-weight: 400;
+            border-radius: 0px;
+        }
+
+        .mega-box {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            padding: 0 30px;
+            top: 85px;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .mega-box .content {
+            background: #242526;
+            padding: 25px 20px;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .mega-box .content .row {
+            width: calc(25% - 30px);
+            line-height: 45px;
+        }
+
+        .content .row img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content .row header {
+            color: #f2f2f2;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .content .row .mega-links {
+            margin-left: -40px;
+            border-left: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .row .mega-links li {
+            padding: 0 20px;
+        }
+
+        .row .mega-links li a {
+            padding: 0px;
+            padding: 0 20px;
+            color: #d9d9d9;
+            font-size: 17px;
+            display: block;
+        }
+
+        .row .mega-links li a:hover {
+            color: #f2f2f2;
+        }
+
+        .wrapper .btn {
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .wrapper .btn.close-btn {
+            position: absolute;
+            right: 30px;
+            top: 10px;
+        }
+
+        @media screen and (max-width: 970px) {
+            .wrapper .btn {
+                display: block;
+            }
+
+            .wrapper .nav-links {
+                position: fixed;
+                height: 100vh;
+                width: 100%;
+                max-width: 350px;
+                top: 0;
+                left: -100%;
+                background: #242526;
+                display: block;
+                padding: 50px 10px;
+                line-height: 50px;
+                overflow-y: auto;
+                box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.18);
+                transition: all 0.3s ease;
+            }
+
+            /* custom scroll bar */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #242526;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #3A3B3C;
+            }
+
+            #menu-btn:checked~.nav-links {
+                left: 0%;
+            }
+
+            #menu-btn:checked~.btn.menu-btn {
+                display: none;
+            }
+
+            #close-btn:checked~.btn.menu-btn {
+                display: block;
+            }
+
+            .nav-links li {
+                margin: 15px 10px;
+            }
+
+            .nav-links li a {
+                padding: 0 20px;
+                display: block;
+                font-size: 20px;
+            }
+
+            .nav-links .drop-menu {
+                position: static;
+                opacity: 1;
+                top: 65px;
+                visibility: visible;
+                padding-left: 20px;
+                width: 100%;
+                max-height: 0px;
+                overflow: hidden;
+                box-shadow: none;
+                transition: all 0.3s ease;
+            }
+
+            #showDrop:checked~.drop-menu,
+            #showMega:checked~.mega-box {
+                max-height: 100%;
+            }
+
+            .nav-links .desktop-item {
+                display: none;
+            }
+
+            .nav-links .mobile-item {
+                display: block;
+                color: #f2f2f2;
+                font-size: 20px;
+                font-weight: 500;
+                padding-left: 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links .mobile-item:hover {
+                background: #3A3B3C;
+            }
+
+            .drop-menu li {
+                margin: 0;
+            }
+
+            .drop-menu li a {
+                border-radius: 5px;
+                font-size: 18px;
+            }
+
+            .mega-box {
+                position: static;
+                top: 65px;
+                opacity: 1;
+                visibility: visible;
+                padding: 0 20px;
+                max-height: 0px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .mega-box .content {
+                box-shadow: none;
+                flex-direction: column;
+                padding: 20px 20px 0 20px;
+            }
+
+            .mega-box .content .row {
+                width: 100%;
+                margin-bottom: 15px;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .mega-box .content .row:nth-child(1),
+            .mega-box .content .row:nth-child(2) {
+                border-top: 0px;
+            }
+
+            .content .row .mega-links {
+                border-left: 0px;
+                padding-left: 15px;
+            }
+
+            .row .mega-links li {
+                margin: 0;
+            }
+
+            .content .row header {
+                font-size: 19px;
+            }
+        }
+
+        nav input {
+            display: none;
+        }
+
+        .body-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
+            padding: 0 30px;
+        }
+
+        .body-text div {
+            font-size: 45px;
+            font-weight: 600;
+        }
+
+        .nav-links li a:hover:not(.active) {
+            background-color: #242526;
+        }
+
+        .nav-links li a.active {
+            background-color: #EC971F;
+        }
+
+        /*highchart*/
+        .highcharts-figure,
+        .highcharts-data-table table {
+            min-width: 360px;
+            max-width: 800px;
+            margin: 1em auto;
+        }
+
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #EBEBEB;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
+
+        .highcharts-data-table td,
+        .highcharts-data-table th,
+        .highcharts-data-table caption {
+            padding: 0.5em;
+        }
+
+        .highcharts-data-table thead tr,
+        .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+        }
+        /* highchart */
+        @import 'https://code.highcharts.com/css/highcharts.css';
+
+        .highcharts-range-input text {
+                fill: #7cb5ec;
+            stroke: #7cb5ec;
+        }
+
+        input.highcharts-range-selector {
+                fill: #7cb5ec;
+            stroke: #7cb5ec;
+        }
+    </style>
+</head>
+
+<body>
+    <script></script>
+    <center>
+        <!------------navbar---------------->
+        <!-- <nav>
+            <div class="wrapper">
+                <div class="logo"><a href="/home">สวทช</a></div>
+                <input type="radio" name="slider" id="menu-btn" />
+                <input type="radio" name="slider" id="close-btn" />
+                <ul class="nav-links">
+                    <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+                    <li><a href="/nstda/parking/home">หน้าแรก</a></li>
+                    <li><a href="/nstda/parking/update">จัดการจำนวนรถ</a></li>
+                    <li><a class="active" href="/nstda/parking/history">ประวัติการเข้าออก</a></li>
+                    <li>
+                        <a href="#" class="desktop-item">กล้อง</a>
+                        <input type="checkbox" id="showDrop" />
+                        <label for="showDrop" class="mobile-item">กล้อง</label>
+                        <ul class="drop-menu">
+                            <li><a href="/nstda/parking/deviceinfo1">กล้อง 1</a></li>
+                            <li><a href="/nstda/parking/deviceinfo2">กล้อง 2</a></li>
+                            <li><a href="/nstda/parking/deviceinfo3">กล้อง 3</a></li>
+                            <li><a href="/nstda/parking/deviceinfo4">กล้อง 4</a></li>
+                            <li><a href="/nstda/parking/deviceinfo5">กล้อง 5</a></li>
+                            <li><a href="/nstda/parking/deviceinfo6">กล้อง 6</a></li>
+                            <li><a href="/nstda/parking/deviceinfo7">กล้อง 7</a></li>
+                            <li><a href="/nstda/parking/deviceinfo8">กล้อง 8</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/nstda/parking/adddevice1">เพิ่มกล้อง</a></li>
+                    <li><a href="/nstda/parking/contact">ติดต่อ</a></li>
+                </ul>
+                <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+            </div>
+        </nav> -->
+
+
+        <nav>
+            <div class="wrapper" style="max-width: 1600px;">
+                <div class="logo">
+                    <a href="/nstda/parking/home">สวทช</a>
+                    <a id="show_email" href="#" style="font-size: 15px; pointer-events: none;cursor: default;">
+                        {% if current_user.is_authenticated %}
+                            (   {{  (roles_required)[1]  }}  )
+                        {% endif %}
+                    </a>
+                </div>
+                <input type="radio" name="slider" id="menu-btn" />
+                <input type="radio" name="slider" id="close-btn" />
+                <ul class="nav-links">
+                    <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+                    <li id="menu_home"><a href="/nstda/parking/home">หน้าแรก</a></li>
+
+                    {% if current_user.is_authenticated %}
+
+                            {% if current_user.role == 'advance' %}
+                                <li id="menu_update"><a href="/nstda/parking/update">เพิ่มจำนวนรถ</a></li>
+                            {% endif %}
+
+                            {% if current_user.role == 'admin' %}
+                                <li id="menu_update"><a href="/nstda/parking/update">เพิ่มจำนวนรถ</a></li>
+                                <li id="menu_history"><a class="active" href="/nstda/parking/history">จัดการจำนวนรถ</a></li>
+                                <li id="menu_item">
+                                    <a href="#" class="desktop-item">กล้อง</a>
+                                    <input type="checkbox" id="showDrop" />
+                                    <label for="showDrop" class="mobile-item">กล้อง</label>
+                                    <ul class="drop-menu">
+                                        <li><a href="/nstda/parking/deviceinfo1">กล้อง 1</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo2">กล้อง 2</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo3">กล้อง 3</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo4">กล้อง 4</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo5">กล้อง 5</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo6">กล้อง 6</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo7">กล้อง 7</a></li>
+                                        <li><a href="/nstda/parking/deviceinfo8">กล้อง 8</a></li>
+                                    </ul>
+                                </li>
+                                <li id="menu_adddevice"><a href="/nstda/parking/adddevice1">เพิ่มกล้อง</a></li>
+                                <li id="menu_users"><a href="/nstda/parking/admin/users">จัดการผู้ใช้งาน</a></li>
+                            {% endif %}
+
+                    {% endif %}
+
+                    {% if not current_user.is_authenticated %}
+                        <li id="menu_signup"><a href="/nstda/parking/signup">ลงทะเบียน</a></li>
+                    {% endif %}
+
+                    <li id="menu_contact"><a href="/nstda/parking/contact">ติดต่อ</a></li>
+
+                    {% if not current_user.is_authenticated %}
+                        <li id="menu_login"><a href="/nstda/parking/login">Login</a></li>
+                    {% endif %}
+
+                    {% if current_user.is_authenticated %}
+                    <li id="menu_logout"><a href="/nstda/parking/logout">Logout</a></li>
+                    {% endif %}
+                </ul>
+                <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+            </div>
+        </nav>
+
+        
+        <br><br>
+        <!------------navbar---------------->
+        <br />
+        <br />
+        <br />
+        <h3>ประวัติการเข้าออกของรถยนต์</h3>
+        <br />
+        <!-- ----------------------------------ปุ่ม------------------------------------------------ -->
+        <div>
+            <h1>
+                <button id="btfloor2" type="button" class="btn btn-warning btn-lg" onclick="table2();">ชั้น 2</button>
+                <button id="btfloor3" type="button" class="btn btn-warning btn-lg" onclick="table3();">ชั้น 3</button>
+                <button id="btfloor4" type="button" class="btn btn-warning btn-lg" onclick="table4();">ชั้น 4</button>
+            </h1>
+        </div>
+        <br />
+        <div>
+            <h1>
+                <button id="btgraphline2" type="button" class="btn btn-warning btn-lg" onclick="graphLine2();"><i
+                        class="fas fa-chart-line"></i></button>
+                <button id="btgraph2" type="button" class="btn btn-warning btn-lg" onclick="graph2();"><i
+                        class="fas fa-chart-pie"></i></button>
+                <button id="bttable2" type="button" class="btn btn-warning btn-lg" onclick="table2();"><i
+                        class="fas fa-table"></i></button>
+                <button id="btgraphline3" type="button" class="btn btn-warning btn-lg" onclick="graphLine3();"><i
+                        class="fas fa-chart-line"></i></button>
+                <button id="btgraph3" type="button" class="btn btn-warning btn-lg" onclick="graph3();"><i
+                        class="fas fa-chart-pie"></i></button>
+                <button id="bttable3" type="button" class="btn btn-warning btn-lg" onclick="table3();"><i
+                        class="fas fa-table"></i></button>
+                <button id="btgraphline4" type="button" class="btn btn-warning btn-lg" onclick="graphLine4();"><i
+                        class="fas fa-chart-line"></i></button>
+                <button id="btgraph4" type="button" class="btn btn-warning btn-lg" onclick="graph4();"><i
+                        class="fas fa-chart-pie"></i></button>
+                <button id="bttable4" type="button" class="btn btn-warning btn-lg" onclick="table4();"><i
+                        class="fas fa-table"></i></button>
+            </h1>
+        </div>
+        <div id="content_page">
+            <!-- --------------------------------ตารางประวัติ2-------------------------------------------------- -->
+            <div id="mytable2">
+                <table id='tableDate2' border="0" cellspacing="5" cellpadding="5">
+                    <tbody>
+                        <tr>
+                            <td>เริ่มวันที่:</td>
+                            <td><input type="text" id="min" name="min"></td>
+                        </tr>
+                        <tr>
+                            <td>ถึงวันที่:</td>
+                            <td><input type="text" id="max" name="max"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="myTable_result2">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>รถเข้า</th>
+                            <th>รถออก</th>
+                            <th>รถว่าง</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loop_mytable2"></tbody>
+                </table>
+            </div>
+            <!-- --------------------------------ตารางประวัติ2-------------------------------------------------- -->
+            <!-- --------------------------------ตารางประวัติ3-------------------------------------------------- -->
+            <div id="mytable3">
+                <table id='tableDate3' border="0" cellspacing="5" cellpadding="5">
+                    <tbody>
+                        <tr>
+                            <td>เริ่มวันที่:</td>
+                            <td><input type="text" id="min" name="min"></td>
+                        </tr>
+                        <tr>
+                            <td>ถึงวันที่:</td>
+                            <td><input type="text" id="max" name="max"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="myTable_result3">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>รถเข้า</th>
+                            <th>รถออก</th>
+                            <th>รถว่าง</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loop_mytable3"></tbody>
+                </table>
+            </div>
+            <!-- --------------------------------ตารางประวัติ3-------------------------------------------------- -->
+            <!-- --------------------------------ตารางประวัติ4-------------------------------------------------- -->
+            <div id="mytable4">
+                <table id='tableDate4' border="0" cellspacing="5" cellpadding="5">
+                    <tbody>
+                        <tr>
+                            <td>เริ่มวันที่:</td>
+                            <td><input type="text" id="min" name="min"></td>
+                        </tr>
+                        <tr>
+                            <td>ถึงวันที่:</td>
+                            <td><input type="text" id="max" name="max"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="myTable_result4">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>รถเข้า</th>
+                            <th>รถออก</th>
+                            <th>รถว่าง</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loop_mytable4"></tbody>
+                </table>
+            </div>
+            <!-- --------------------------------ตารางประวัติ4-------------------------------------------------- -->
+            <br />
+            <br />
+            <!-- --------------------------------linechart-------------------------------------------------- -->
+            
+            <div id="container" style="height: 500px; min-width: 310px"></div>
+
+
+            <div class='container'>
+                <table class="table-hover" id="myTableGraph" style="width: 30%">
+                    <thead>
+                        <tr>
+                            <th>จำนวนรถเข้า</th>
+                            <th>จำนวนรถออก</th>
+                            <th>จำนวนลานจอดที่ว่าง</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loop_mytableGraph"></tbody>
+                </table>
+            </div>
+            <div>
+
+            </div>
+
+            <br />
+            <br />
+
+            <div id="donutchart" style="width: 100%;height: 80%">
+                <canvas id="myChart" width="1120" height="600"
+                    style="display: block; height: 600; width: 1120"></canvas>
+            </div>
+        </div>
+        <script>
+            SlickLoader.enable();
+            $("#content_page").hide();
+            $("#myChartLine").hide();
+            $("#myTable_result2").hide();
+            $("#myTable_result3").hide();
+            $("#myTable_result4").hide();
+            $("#myChart").hide();
+            $("#myTableGraph").hide();
+
+            $("#tableDate2").hide();
+            $("#tableDate3").hide();
+            $("#tableDate4").hide();
+
+
+            $("#mytable2").hide();
+            $("#mytable3").hide();
+            $("#mytable4").hide();
+
+            $("#container").hide();
+            $("#bttable2").hide();
+            $("#bttable3").hide();
+            $("#bttable4").hide();
+
+            $("#btgraph2").hide();
+            $("#btgraph3").hide();
+            $("#btgraph4").hide();
+
+            $("#btgraphline2").hide();
+            $("#btgraphline3").hide();
+            $("#btgraphline4").hide();
+            $(document).ready(async function () {
+                await table2()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+
+            });
+            /////////floor2
+            document.getElementById("btfloor2").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await table2()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById("btgraphline2").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await graphLine2()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById("btgraph2").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await graph2()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById("bttable2").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await table2()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            ////floor3
+            document.getElementById("btfloor3").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await table3()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById("btgraphline3").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await graphLine3()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById("btgraph3").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await graph3()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById("bttable3").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await table3()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            /////////floor4
+            document.getElementById("btfloor4").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await table4()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById("btgraphline4").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await graphLine4()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById("btgraph4").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await graph4()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+            document.getElementById("bttable4").onclick = async function () {
+                await SlickLoader.enable();
+                await $("#content_page").fadeOut();
+                await table4()
+                await $("#content_page").fadeIn();
+                await SlickLoader.disable();
+            }
+        </script>
+
+        <!-- ------------------------------------แสดงข้อมูลตารางชั้น 2---------------------------------------------- -->
+        <script>
+            function table2() {
+                $("#container").hide();
+
+                $("#tableDate3").hide();
+                $("#tableDate4").hide();
+
+
+
+                $("#mytable3").hide();
+                $("#mytable4").hide()
+
+                $("#myChartLine").hide();
+                $("#myChart").hide();
+                $("#myTableGraph").hide();
+
+                //
+                $("#bttable3").hide();
+                $("#btgraph3").hide();
+                //
+                $("#bttable4").hide();
+                $("#btgraph4").hide();
+
+
+                $("#btgraphline3").hide();
+                $("#btgraphline4").hide();
+
+
+                fetch("https://203.185.67.133:3999/api/getdataf2/history/3/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite?limit=150", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                    .then(function (response) {
+                        // console.log(response); //แปลงข้อมูลเป็น json
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        console.log("//แสดงข้อมูล ทั้งหมด");
+
+
+                        appendData2(data)
+
+
+                    })
+                    .catch(function (err) {
+                        console.log("error: " + err);
+                    });
+                function appendData2(data) {
+
+                    $("#myTable_result2").show();
+                    var table = document.getElementById("loop_mytable2");
+                    table.innerHTML = "";
+                    for (var y = 0; y < data.length; y++) {
+                        var em = 150 - data[y]['count_IN'] + data[y]['count_OUT'];
+                        var row = `<tr>
+                                    <td>${data[y]['currentTime']}</td>
+                                    <td>${data[y]['count_IN']}</td>
+                                    <td>${data[y]['count_OUT']}</td>
+                                    <td>${em}</td>
+                                    </tr>`;
+                        table.innerHTML += row;
+                    }
+
+                    var minDate, maxDate, button;
+
+                    // Custom filtering function which will search data in column four between two values
+                    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                        var min = minDate.val();
+                        var max = maxDate.val();
+                        var date = new Date(data[0]);
+
+                        console.log("==============================")
+                        if (document.getElementById('min').value != "") {
+                            let iso_min = new Date(document.getElementById('min').value).toISOString();
+                            min = new Date(iso_min);
+                        }
+                        if (document.getElementById('max').value != "") {
+                            let iso_max = new Date(document.getElementById('max').value).toISOString();
+                            max = new Date(iso_max);
+                        }
+                        console.log(min)
+                        console.log(max)
+                        console.log(date)
+                        console.log("==============================")
+
+                        if ((min === null && max === null) || (min === null && date <= max) || (min <= date && max === null) || (min <= date && date <= max)) {
+                            return true;
+                        }
+                        return false;
+                    });
+
+                    $(document).ready(function () {
+
+
+                        // Create date inputs
+                        minDate = new DateTime($('#min'), {
+                            format: 'YYYY-MM-DD HH:MM'
+
+                        });
+                        maxDate = new DateTime($('#max'), {
+                            format: 'YYYY-MM-DD HH:MM'
+                        });
+
+                        // DataTables initialisation
+                        var table = $('#myTable_result2').DataTable({
+                            order: [[0, "desc"]],
+                            destroy: true,
+                        });
+
+                        // Refilter the table
+                        $('#min, #max').on('change', function () {
+                            table.draw();
+                        });
+
+                    })
+
+
+                }
+                $("#mytable2").fadeIn();
+                $("#myTable_result2").fadeIn();
+                $("#tableDate2").fadeIn();
+
+                $("#bttable2").fadeIn();
+                $("#btgraph2").fadeIn();
+                $("#btgraphline2").fadeIn();
+
+                $("#myTable_result2_length").fadeIn();
+                $("#myTable_result2_filter").fadeIn();
+                $("#myTable_result2_info").fadeIn();
+                $("#myTable_result2_paginate").fadeIn();
+            }
+        </script>
+        <!---------------------------------กราฟ2------------------------------------------------->
+        <script>
+
+            function graph2() {
+                $("#myChartLine").hide();
+
+                $("#myTable_result2").hide();
+                $("#myTable_result2_length").hide();
+                $("#myTable_result2_filter").hide();
+                $("#myTable_result2_info").hide();
+                $("#myTable_result2_paginate").hide();
+                $("#tableDate2").hide();
+                $("#container").hide();
+                let valueIn2 = [];
+                let valueOut2 = [];
+                let valueCurrentTime2 = [];
+
+                var car = 150;
+                var f2_in;
+                var f2_out;
+                var f2_em;
+                var f2_currentTime;
+
+                $(document).ready(function () {
+                    showGraph();
+                });
+                function showGraph() {
+                    fetch("https://203.185.67.133:3999/api/getdataf2/history/3/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                        .then(function (response) {
+                            // console.log(response); //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data2) {
+                            console.log("//แสดงข้อมูล ทั้งหมด");
+
+
+                            Graph2(data2)
+
+
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function Graph2(data2) {
+                        console.log(data2);
+                        f2_in = data2[0]['count_IN'];
+                        f2_out = data2[0]['count_OUT'];
+                        f2_currentTime = data2[0]['currentTime'];
+                        f2_em = car - data2[0]['count_IN'] + data2[0]['count_OUT'];
+
+                        console.log(f2_in);
+                        console.log(f2_out);
+                        console.log(f2_em);
+                        console.log(f2_currentTime);
+
+                        const data = {
+                            labels: ["จำนวนรถเข้า", "จำนวนรถออก", "จำนวนลานจอดว่าง"],
+                            datasets: [
+                                {
+                                    label: "การเข้าออกของรถยนต์",
+                                    data: [f2_in, f2_out, f2_em],
+                                    backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"],
+                                    hoverOffset: 4,
+                                    datalabels: {
+                                        color: "black",
+
+                                    }
+                                },
+                            ],
+                        };
+                        let graphTarget = $("#myChart");
+                        let barGraph = new Chart(graphTarget, {
+                            type: "doughnut",
+                            data: data,
+                            plugins: [ChartDataLabels],
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                title: {
+                                    display: true,
+                                    text: "การเข้าออกของรถยนต์",
+                                    fontSize: 40,
+                                },
+
+                            },
+
+
+
+
+                        });
+                    };
+                }
+                fetch("https://203.185.67.133:3999/api/getdataf2/history/0/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                    .then(function (response) {
+                        // console.log(response); //แปลงข้อมูลเป็น json
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        console.log("//แสดงข้อมูล ทั้งหมด");
+
+
+                        appendDataGraph2(data)
+
+
+                    })
+                    .catch(function (err) {
+                        console.log("error: " + err);
+                    });
+                function appendDataGraph2(data) {
+
+                    var table = document.getElementById("loop_mytableGraph");
+                    table.innerHTML = "";
+                    for (var y = 0; y < data.length; y++) {
+                        var em = 150 - data[0]['count_IN'] + data[0]['count_OUT'];
+                        var row = `<tr>
+                                    <td>${data[0]['count_IN']}</td>
+                                    <td>${data[0]['count_OUT']}</td>
+                                    <td>${em}</td>
+                                    </tr>`;
+                        table.innerHTML += row;
+                    }
+
+                }
+                $("#myChart").show();
+                $("#myTableGraph").show();
+            }
+        </script>
+        <!---------------------------------กราฟ2------------------------------------------------->
+        <!---------------------------------กราฟ2Line------------------------------------------------->
+        <script>
+            // Add async
+            async function graphLine2() {
+
+
+
+                $("#myChart").hide();
+                $("#myTableGraph").hide();
+                $("#myTable_result2").hide();
+                $("#myTable_result2_length").hide();
+                $("#myTable_result2_filter").hide();
+                $("#myTable_result2_info").hide();
+                $("#myTable_result2_paginate").hide();
+                $("#tableDate2").hide();
+
+                var car = 150;
+                var f2Line_in = [];
+                var f2Line_out = [];
+                var f2Line_em = [];
+                var f2Line_currentTime = [];
+
+
+                // NEW Chart JS 10/15/64 ==================================================================
+                // Add await
+                await fetch("https://203.185.67.133:3999/api/getdataf2/history/3/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite?limit=500", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        for (var y = 0; y < data.length; y++) {
+                            f2Line_in.push(data[y]['count_IN']);
+                            f2Line_out.push(data[y]['count_OUT']);
+                            f2Line_currentTime.push(data[y]['currentTime']);
+                            f2Line_em.push(car - data[y]['count_IN'] + data[y]['count_OUT']);
+                        }
+                        // ย้ายออกมานอก Loop เพื่อไม่ให้โดยสร้างกราฟซ้ำๆ
+                        
+                        
+                        
+
+                        // Create the chart
+                        Highcharts.chart('container', {
+                            chart: {
+                                type: 'line'
+                            },
+                            title: {
+                                text: 'ตารางการเข้า-ออกของรถยนต์'
+                            },
+                            subtitle: {
+                                text: 'ชั้น 3'
+                            },
+                            xAxis: {
+                                categories: f2Line_currentTime
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'จำนวนรถยนต์ เข้า-ออก'
+                                }
+                            },
+                            plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true
+                                    },
+                                    enableMouseTracking: false
+                                }
+                            },
+                            series: [{
+                                name: 'รถเข้า',
+                                data: f2Line_in
+                            }, {
+                                name: 'รถออก',
+                                data: f2Line_out
+                            }, {
+                                name: 'ลานจอดว่าง',
+                                data: f2Line_em
+                            }]
+                        });
+                        
+
+
+                    })
+                    .catch(function (err) {
+                        console.log("error: " + err);
+                    });
+                // ========================================================================= 
+                await $("#container").fadeIn();
+                await $("#myChartLine").fadeIn();
+            }
+
+        </script>
+        <!---------------------------------กราฟLine2------------------------------------------------->
+        <!-- ------------------------------------แสดงข้อมูลตารางชั้น 3---------------------------------------------- -->
+        <script>
+            async function table3() {
+                $("#container").hide();
+
+                $("#tableDate2").hide();
+                
+                $("#tableDate4").hide();
+
+
+                $("#mytable2").hide();
+                
+                $("#mytable4").hide();
+
+                $("#myChartLine").hide();
+                $("#myChart").hide();
+                $("#myTableGraph").hide();
+                
+
+                $("#bttable2").hide();
+                $("#btgraph2").hide();
+                //
+                
+                //
+                $("#bttable4").hide();
+                $("#btgraph4").hide();
+                $("#btgraphline4").hide();
+                $("#btgraphline2").hide();
+                
+
+                await fetch("https://203.185.67.133:3999/api/getdataf3/history/3/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite?limit=150", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                    .then(function (response) {
+                        // console.log(response); //แปลงข้อมูลเป็น json
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        console.log("//แสดงข้อมูล ทั้งหมด");
+
+
+                        appendData3(data)
+
+
+                    })
+                    .catch(function (err) {
+                        console.log("error: " + err);
+                    });
+                function appendData3(data) {
+
+
+                    $("#myTable_result3").show();
+                    var table = document.getElementById("loop_mytable3");
+                    table.innerHTML = "";
+                    for (var y = 0; y < data.length; y++) {
+                        var em = 150 - data[y]['count_IN'] + data[y]['count_OUT'];
+                        var row = `<tr>
+                                    <td>${data[y]['currentTime']}</td>
+                                    <td>${data[y]['count_IN']}</td>
+                                    <td>${data[y]['count_OUT']}</td>
+                                    <td>${em}</td>
+                                    </tr>`;
+                        table.innerHTML += row;
+                    }
+
+                    var minDate, maxDate, button;
+
+                    // Custom filtering function which will search data in column four between two values
+                    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                        var min = minDate.val();
+                        var max = maxDate.val();
+                        var date = new Date(data[0]);
+
+                        console.log("==============================")
+                        if (document.getElementById('min').value != "") {
+                            let iso_min = new Date(document.getElementById('min').value).toISOString();
+                            min = new Date(iso_min);
+                        }
+                        if (document.getElementById('max').value != "") {
+                            let iso_max = new Date(document.getElementById('max').value).toISOString();
+                            max = new Date(iso_max);
+                        }
+                        console.log(min)
+                        console.log(max)
+                        console.log(date)
+                        console.log("==============================")
+
+                        if ((min === null && max === null) || (min === null && date <= max) || (min <= date && max === null) || (min <= date && date <= max)) {
+                            return true;
+                        }
+                        return false;
+                    });
+
+                    $(document).ready(function () {
+
+
+                        // Create date inputs
+                        minDate = new DateTime($('#min'), {
+                            format: 'YYYY-MM-DD HH:MM'
+
+                        });
+                        maxDate = new DateTime($('#max'), {
+                            format: 'YYYY-MM-DD HH:MM'
+                        });
+
+                        // DataTables initialisation
+                        var table = $('#myTable_result3').DataTable({
+                            order: [[1, "desc"]],
+                            destroy: true,
+                        });
+
+                        // Refilter the table
+                        $('#min, #max').on('change', function () {
+                            table.draw();
+                        });
+
+                    })
+
+                }
+                $("#btgraphline3").show();
+                $("#bttable3").show();
+                $("#btgraph3").show();
+                $("#myTable_result").show();
+                $("#tableDate").show();
+                $("#mytable3").show();
+                $("#tableDate3").show();
+                $("#myTable_result3_length").show();
+                $("#myTable_result3_filter").show();
+                $("#myTable_result3_info").show();
+                $("#myTable_result3_paginate").show();
+            }
+        </script>
+        <!---------------------------------กราฟ3------------------------------------------------->
+        <script>
+            async function graph3() {
+                $("#container").hide();
+
+                $("#myChartLine").hide();
+                
+                $("#myTable_result3").hide();
+                $("#myTable_result3_length").hide();
+                $("#myTable_result3_filter").hide();
+                $("#myTable_result3_info").hide();
+                $("#myTable_result3_paginate").hide();
+                $("#tableDate3").hide();
+
+                let valueIn3 = [];
+                let valueOut3 = [];
+                let valueCurrentTime3 = [];
+
+                var car = 150;
+                var f3_in = [];
+                var f3_out = [];
+                var f3_em;
+                var f3_currentTime = [];
+
+                $(document).ready(function () {
+                    showGraph();
+                });
+                function showGraph() {
+                    fetch("https://203.185.67.133:3999/api/getdataf3/history/3/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                        .then(function (response) {
+                            // console.log(response); //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data2) {
+                            console.log("//แสดงข้อมูล ทั้งหมด");
+
+
+                            Graph3(data2)
+
+
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function Graph3(data2) {
+                        console.log(data2);
+                        f3_in = data2[0]['count_IN'];
+                        f3_out = data2[0]['count_OUT'];
+                        f3_currentTime = data2[0]['currentTime'];
+                        f3_em = car - data2[0]['count_IN'] + data2[0]['count_OUT'];
+
+                        console.log(f3_in);
+                        console.log(f3_out);
+                        console.log(f3_em);
+                        console.log(f3_currentTime);
+
+                        const data = {
+                            labels: ["จำนวนรถเข้า", "จำนวนรถออก", "จำนวนลานจอดว่าง"],
+                            datasets: [
+                                {
+                                    label: "การเข้าออกของรถยนต์",
+                                    data: [f3_in, f3_out, f3_em],
+                                    backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"],
+                                    hoverOffset: 4,
+                                    datalabels: {
+                                        color: "black",
+
+                                    }
+                                },
+                            ],
+                        };
+                        let graphTarget = $("#myChart");
+                        let barGraph = new Chart(graphTarget, {
+                            type: "doughnut",
+                            data: data,
+                            plugins: [ChartDataLabels],
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                title: {
+                                    display: true,
+                                    text: "การเข้าออกของรถยนต์",
+                                    fontSize: 40,
+                                },
+
+                            },
+                        });
+                    };
+                }
+                await fetch("https://203.185.67.133:3999/api/getdataf3/history/0/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                    .then(function (response) {
+                        // console.log(response); //แปลงข้อมูลเป็น json
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        console.log("//แสดงข้อมูล ทั้งหมด");
+
+
+                        appendDataGraph3(data)
+
+
+                    })
+                    .catch(function (err) {
+                        console.log("error: " + err);
+                    });
+                function appendDataGraph3(data) {
+
+                    var table = document.getElementById("loop_mytableGraph");
+                    table.innerHTML = "";
+                    for (var y = 0; y < data.length; y++) {
+                        var em = 150 - data[0]['count_IN'] + data[0]['count_OUT'];
+                        var row = `<tr>
+                                    <td>${data[0]['count_IN']}</td>
+                                    <td>${data[0]['count_OUT']}</td>
+                                    <td>${em}</td>
+                                    </tr>`;
+                        table.innerHTML += row;
+                    }
+
+                }
+                $("#myChart").show();
+                $("#myTableGraph").show();
+            }
+
+        </script>
+        <!---------------------------------กราฟ3------------------------------------------------->
+        <!---------------------------------กราฟ3Line------------------------------------------------->
+        <script>
+
+            async function graphLine3() {
+                $("#container").show();
+
+                $("#myChartLine").show();
+                $("#myChart").hide();
+                $("#myTableGraph").hide();
+                $("#myTable_result3").hide();
+                $("#myTable_result3_length").hide();
+                $("#myTable_result3_filter").hide();
+                $("#myTable_result3_info").hide();
+                $("#myTable_result3_paginate").hide();
+                $("#tableDate3").hide();
+
+                var car = 150;
+                var f3Line_in = [];
+                var f3Line_out = [];
+                var f3Line_em = [];
+                var f3Line_currentTime = [];
+
+
+
+                await fetch("https://203.185.67.133:3999/api/getdataf3/history/3/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite?limit=500", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                    .then(function (response) {
+                        // console.log(response); //แปลงข้อมูลเป็น json
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        console.log("//แสดงข้อมูล ทั้งหมด");
+
+                        for (var y = 0; y < data.length; y++) {
+                            f3Line_in.push(data[y]['count_IN']);
+                            f3Line_out.push(data[y]['count_OUT']);
+                            f3Line_currentTime.push(data[y]['currentTime']);
+                            f3Line_em.push(car - data[y]['count_IN'] + data[y]['count_OUT']);
+
+                            //console.log(f3Line_in);
+                            //console.log(f3Line_out);
+                            //console.log(f3Line_em);
+                            //console.log(f3Line_currentTime);
+
+
+                        }
+                        // ย้ายออกมานอก Loop เพื่อไม่ให้โดยสร้างกราฟซ้ำๆ
+                        Highcharts.chart('container', {
+                            chart: {
+                                type: 'line'
+                            },
+                            title: {
+                                text: 'ตารางการเข้า-ออกของรถยนต์'
+                            },
+                            subtitle: {
+                                text: 'ชั้น 3'
+                            },
+                            xAxis: {
+                                categories: f3Line_currentTime
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'จำนวนรถยนต์ เข้า-ออก'
+                                }
+                            },
+                            plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true
+                                    },
+                                    enableMouseTracking: false
+                                }
+                            },
+                            series: [{
+                                name: 'รถเข้า',
+                                data: f3Line_in
+                            }, {
+                                name: 'รถออก',
+                                data: f3Line_out
+                            }, {
+                                name: 'ลานจอดว่าง',
+                                data: f3Line_em
+                            }]
+                        });
+
+
+                    })
+                    .catch(function (err) {
+                        console.log("error: " + err);
+                    });
+
+            }
+
+        </script>
+        <!---------------------------------กราฟLine3------------------------------------------------->
+        <!-- ------------------------------------แสดงข้อมูลตารางชั้น 4---------------------------------------------- -->
+        <script>
+            async function table4() {
+                $("#container").hide();
+
+                $("#tableDate2").hide();
+                $("#tableDate3").hide();
+                
+
+
+                $("#mytable2").hide();
+                $("#mytable3").hide();
+                
+
+                $("#myChartLine").hide();
+                $("#myChart").hide();
+                $("#myTableGraph").hide();
+               
+
+                $("#bttable2").hide();
+                $("#btgraph2").hide();
+                //
+                $("#bttable3").hide();
+                $("#btgraph3").hide();
+                //
+                
+
+                $("#btgraphline2").hide();
+                $("#btgraphline3").hide();
+                
+
+                await fetch("https://203.185.67.133:3999/api/getdataf4/history/3/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite?limit=150", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                    .then(function (response) {
+                        // console.log(response); //แปลงข้อมูลเป็น json
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        console.log("//แสดงข้อมูล ทั้งหมด");
+
+
+                        appendData4(data)
+
+
+                    })
+                    .catch(function (err) {
+                        console.log("error: " + err);
+                    });
+                function appendData4(data) {
+
+                    $("#myTable_result4").show();
+                    var table = document.getElementById("loop_mytable4");
+                    table.innerHTML = "";
+                    for (var y = 0; y < data.length; y++) {
+                        var em = 150 - data[y]['count_IN'] + data[y]['count_OUT'];
+                        var row = `<tr>
+                                    <td>${data[y]['currentTime']}</td>
+                                    <td>${data[y]['count_IN']}</td>
+                                    <td>${data[y]['count_OUT']}</td>
+                                    <td>${em}</td>
+                                    </tr>`;
+                        table.innerHTML += row;
+                    }
+
+                    var minDate, maxDate, button;
+
+                    // Custom filtering function which will search data in column four between two values
+                    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                        var min = minDate.val();
+                        var max = maxDate.val();
+                        var date = new Date(data[0]);
+
+                        console.log("==============================")
+                        if (document.getElementById('min').value != "") {
+                            let iso_min = new Date(document.getElementById('min').value).toISOString();
+                            min = new Date(iso_min);
+                        }
+                        if (document.getElementById('max').value != "") {
+                            let iso_max = new Date(document.getElementById('max').value).toISOString();
+                            max = new Date(iso_max);
+                        }
+                        console.log(min)
+                        console.log(max)
+                        console.log(date)
+                        console.log("==============================")
+
+                        if ((min === null && max === null) || (min === null && date <= max) || (min <= date && max === null) || (min <= date && date <= max)) {
+                            return true;
+                        }
+                        return false;
+                    });
+
+                    $(document).ready(function () {
+
+
+                        // Create date inputs
+                        minDate = new DateTime($('#min'), {
+                            format: 'YYYY-MM-DD HH:MM'
+
+                        });
+                        maxDate = new DateTime($('#max'), {
+                            format: 'YYYY-MM-DD HH:MM'
+                        });
+
+                        // DataTables initialisation
+                        var table = $('#myTable_result4').DataTable({
+                            order: [[2, "desc"]],
+                            destroy: true,
+                        });
+
+                        // Refilter the table
+                        $('#min, #max').on('change', function () {
+                            table.draw();
+                        });
+
+                    })
+
+                }
+                $("#bttable4").show();
+                $("#btgraph4").show();
+                $("#myTable_result").show();
+                $("#tableDate").show();
+                $("#mytable4").show();
+                $("#btgraphline4").show();
+                $("#tableDate4").show();
+                $("#myTable_result4_length").show();
+                $("#myTable_result4_filter").show();
+                $("#myTable_result4_info").show();
+                $("#myTable_result4_paginate").show();
+
+            }
+        </script>
+        <!---------------------------------กราฟ4------------------------------------------------->
+        <script>
+            async function graph4() {
+                $("#container").hide();
+
+                $("#myChartLine").hide();
+                
+                $("#myTable_result4").hide();
+                $("#myTable_result4_length").hide();
+                $("#myTable_result4_filter").hide();
+                $("#myTable_result4_info").hide();
+                $("#myTable_result4_paginate").hide();
+                $("#tableDate4").hide();
+
+                let valueIn4 = [];
+                let valueOut4 = [];
+                let valueCurrentTime4 = [];
+
+                var car = 150;
+                var f4_in;
+                var f4_out;
+                var f4_em;
+                var f4_currentTime;
+
+                $(document).ready(function () {
+                    showGraph();
+                });
+                function showGraph() {
+                    fetch("https://203.185.67.133:3999/api/getdataf4/history/3/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                        .then(function (response) {
+                            // console.log(response); //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data2) {
+                            console.log("//แสดงข้อมูล ทั้งหมด");
+
+
+                            Graph4(data2)
+
+
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function Graph4(data2) {
+                        console.log(data2);
+                        f4_in = data2[0]['count_IN'];
+                        f4_out = data2[0]['count_OUT'];
+                        f4_currentTime = data2[0]['currentTime'];
+                        f4_em = car - data2[0]['count_IN'] + data2[0]['count_OUT'];
+
+                        console.log(f4_in);
+                        console.log(f4_out);
+                        console.log(f4_em);
+                        console.log(f4_currentTime);
+
+                        const data = {
+                            labels: ["จำนวนรถเข้า", "จำนวนรถออก", "จำนวนลานจอดว่าง"],
+                            datasets: [
+                                {
+                                    label: "การเข้าออกของรถยนต์",
+                                    data: [f4_in, f4_out, f4_em],
+                                    backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"],
+                                    hoverOffset: 4,
+                                    datalabels: {
+                                        color: "black",
+
+                                    }
+                                },
+                            ],
+                        };
+                        let graphTarget = $("#myChart");
+                        let barGraph = new Chart(graphTarget, {
+                            type: "doughnut",
+                            data: data,
+                            plugins: [ChartDataLabels],
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                title: {
+                                    display: true,
+                                    text: "การเข้าออกของรถยนต์",
+                                    fontSize: 40,
+                                },
+                                // ขั้นตอนการทำ labels =========================================
+                                plugins: {
+                                    labels: {
+                                        render: "percentage",
+                                        fontColor: "white",
+                                        fontSize: 15,
+                                        precision: 2,
+                                    },
+                                },
+                                // ขั้นตอนการทำ labels =========================================
+                            },
+
+                        });
+                    };
+                }
+                await fetch("https://203.185.67.133:3999/api/getdataf4/history/0/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                    .then(function (response) {
+                        // console.log(response); //แปลงข้อมูลเป็น json
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        console.log("//แสดงข้อมูล ทั้งหมด");
+
+
+                        appendDataGraph4(data)
+
+
+                    })
+                    .catch(function (err) {
+                        console.log("error: " + err);
+                    });
+                function appendDataGraph4(data) {
+
+                    var table = document.getElementById("loop_mytableGraph");
+                    table.innerHTML = "";
+                    for (var y = 0; y < data.length; y++) {
+                        var em = 150 - data[0]['count_IN'] + data[0]['count_OUT'];
+                        var row = `<tr>
+                                    <td>${data[0]['count_IN']}</td>
+                                    <td>${data[0]['count_OUT']}</td>
+                                    <td>${em}</td>
+                                    </tr>`;
+                        table.innerHTML += row;
+                    }
+
+                }
+                $("#myChart").show();
+                $("#myTableGraph").show();
+            }
+        </script>
+        <!---------------------------------กราฟ4------------------------------------------------->
+        <!---------------------------------กราฟ4Line------------------------------------------------->
+        <script>
+
+            async function graphLine4() {
+                
+                $("#myChart").hide();
+                $("#myTableGraph").hide();
+                $("#myTable_result4").hide();
+                $("#myTable_result4_length").hide();
+                $("#myTable_result4_filter").hide();
+                $("#myTable_result4_info").hide();
+                $("#myTable_result4_paginate").hide();
+                $("#tableDate4").hide();
+
+                var car = 150;
+                var f4Line_in = [];
+                var f4Line_out = [];
+                var f4Line_em = [];
+                var f4Line_currentTime = [];
+
+
+
+                await fetch("https://203.185.67.133:3999/api/getdataf4/history/3/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite?limit=150", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                    .then(function (response) {
+                        // console.log(response); //แปลงข้อมูลเป็น json
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        console.log("//แสดงข้อมูล ทั้งหมด");
+
+                        for (var y = 0; y < data.length; y++) {
+                            f4Line_in.push(data[y]['count_IN']);
+                            f4Line_out.push(data[y]['count_OUT']);
+                            f4Line_currentTime.push(data[y]['currentTime']);
+                            f4Line_em.push(car - data[y]['count_IN'] + data[y]['count_OUT']);
+
+                            //console.log(f4Line_in);
+                            //console.log(f4Line_out);
+                            //console.log(f4Line_em);
+                            //console.log(f4Line_currentTime);
+
+
+                        }
+                        Highcharts.chart('container', {
+                            chart: {
+                                type: 'line'
+                            },
+                            title: {
+                                text: 'ตารางการเข้า-ออกของรถยนต์'
+                            },
+                            subtitle: {
+                                text: 'ชั้น 4'
+                            },
+                            xAxis: {
+                                categories: f4Line_currentTime
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'จำนวนรถยนต์ เข้า-ออก'
+                                }
+                            },
+                            plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true
+                                    },
+                                    enableMouseTracking: false
+                                }
+                            },
+                            series: [{
+                                name: 'รถเข้า',
+                                data: f4Line_in
+                            }, {
+                                name: 'รถออก',
+                                data: f4Line_out
+                            }, {
+                                name: 'ลานจอดว่าง',
+                                data: f4Line_em
+                            }]
+                        });
+
+
+                    })
+                    .catch(function (err) {
+                        console.log("error: " + err);
+                    });
+
+                $("#container").show();
+
+                $("#myChartLine").show();
+            }
+
+        </script>
+        <!---------------------------------กราฟLine4------------------------------------------------->
+
+    </center>
+
+</body>
+
+</html>

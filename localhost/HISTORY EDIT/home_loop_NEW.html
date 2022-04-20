@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!------------------------------------------------------->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <!-------------------------------------------------------------->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+        <title>HOME</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .topnav {
+                overflow: hidden;
+                background-color: #333;
+            }
+
+            .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            .topnav a.active {
+                background-color: #0b93fe;
+                color: white;
+            }
+        </style>
+    </head>
+    <body onload="startTime()">
+        <center>
+            <div class="topnav">
+                <a class="active" href="http://127.0.0.1:5000/home">Home</a>
+                <a href="http://127.0.0.1:5000/history">History</a>
+                <a href="http://127.0.0.1:5000/device">Device</a>
+            </div>
+            <div id="txt"></div>
+            <br />
+            <br />
+            <div>
+                <h2>
+                    <button type="button" class="btn btn-warning btn-lg" onclick="floor2()">F2</button>
+                    <button type="button" class="btn btn-warning btn-lg" onclick="floor3();">F3</button>
+                    <button type="button" class="btn btn-warning btn-lg" onclick="floor4();">F4</button>
+                    <button type="button" class="btn btn-warning btn-lg" onclick="graph();">Graph</button>
+                </h2>
+            </div>
+            <br />
+            <br />
+            <br />
+            <!------------กราฟ---------------->
+            <div style="width: 40%">
+                <canvas id="myChart" width="1120" height="600" style="display: block; height: 600; width: 1120"></canvas>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <h2>
+                <div class="container-fluid" style="width: 100%">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div id="result_in" style="border: 3px dashed #f08080; background-color: #ffffe0">
+                                IN:
+                                <div id="result_in_text"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div id="result_out" style="border: 3px dashed #f08080; background-color: #ffffe0">
+                                OUT:
+                                <div id="result_out_text"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div id="result_em" style="border: 3px dashed #f08080; background-color: #ffffe0">
+                                ว่าง:
+                                <div id="result_em_text"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h2>
+            <!------------เวลาอัพเดทข้อมูลล่าสุด----------------->
+            <div id="currentime"></div>
+
+            <!------------ซ่อนฟังชั่นอื่น---------------->
+            <script>
+                $("#result_in").hide();
+                $("#result_out").hide();
+                $("#result_em").hide();
+                $("#currentime").hide();
+                $("#myChart").hide();
+            </script>
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <!------------ดึงข้อมูลชั้น2--------------->
+            <script>
+                var loop_f2;
+                var loop_f3;
+                var loop_f4;
+                function floor2() {
+                    clearTimeout(loop_f2);
+                    clearTimeout(loop_f3);
+                    clearTimeout(loop_f4);
+
+                    $("#myChart").hide();
+                    //ดึงข้อมูลรถเข้า
+                    fetch("http://127.0.0.1:5000/getdataf2")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDatain2(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDatain2(data) {
+                        $("#result_in").show();
+                        document.getElementById("result_in_text").innerHTML = data[data.length - 1].count_IN["value"];
+                    }
+                    //แสดงข้อมูลรถออก
+                    fetch("http://127.0.0.1:5000/getdataf2")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDataout2(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDataout2(data) {
+                        $("#result_out").show();
+                        document.getElementById("result_out_text").innerHTML = data[data.length - 1].count_OUT["value"];
+                    }
+                    //แสดงข้อมูลจำนวนลานจอดที่เหลือ
+                    fetch("http://127.0.0.1:5000/getdataf2")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDataem2(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDataem2(data) {
+                        $("#result_em").show();
+                        var car = 150;
+                        document.getElementById("result_em_text").innerHTML = car - data[data.length - 1].count_IN["value"] + data[data.length - 1].count_OUT["value"];
+                        // -----------------------------------------------------------------------------------------------------------
+                        var car_empty = car - data[data.length - 1].count_IN["value"] + data[data.length - 1].count_OUT["value"];
+                        console.log(car_empty);
+                        if (car_empty >= 80) {
+                            // สีแดง
+                            document.getElementById("result_em_text").style.backgroundColor = "#FF0000";
+                            console.log("สีแดง");
+                        } else if (car_empty < 80 && car_empty >= 40) {
+                            // สีเหลือง
+                            document.getElementById("result_em_text").style.backgroundColor = "#FFFF33";
+                            console.log("สีเหลือง");
+                        } else if (car_empty < 40) {
+                            // สีเขียว
+                            document.getElementById("result_em_text").style.backgroundColor = "#99FF33";
+                            console.log("สีเขียว");
+                        }
+                        // -----------------------------------------------------------------------------------------------------------
+                    }
+                    //แสดงเวลาอัพเดทข้อมูลล่าสุด
+                    fetch("http://127.0.0.1:5000/getdataf2")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDatacurrentime2(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDatacurrentime2(data) {
+                        $("#currentime").show();
+                        document.getElementById("currentime").innerHTML = "Update Time:" + data[data.length - 1].currentTime["value"];
+                    }
+                    // Loop function -------------------------------------------------------------------
+                    var delayInMilliseconds = 5000; //5 second
+                    loop_f2 = setTimeout(function () {
+                        console.log("Loop F2 running");
+                        floor2();
+                    }, delayInMilliseconds);
+                    // Loop function -------------------------------------------------------------------
+                }
+            </script>
+            <!------------ดึงข้อมูลชั้น3--------------->
+            <script>
+                function floor3() {
+                    clearTimeout(loop_f2);
+                    clearTimeout(loop_f3);
+                    clearTimeout(loop_f4);
+
+                    $("#myChart").hide();
+                    //แสดงข้อมูลรถเข้า
+                    fetch("http://127.0.0.1:5000/getdataf3")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDatain3(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDatain3(data) {
+                        $("#result_in").show();
+                        document.getElementById("result_in_text").innerHTML = data[data.length - 1].count_IN["value"];
+                    }
+                    //แสดงข้อมูลรถออก
+                    fetch("http://127.0.0.1:5000/getdataf3")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDataout3(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDataout3(data) {
+                        $("#result_out").show();
+                        document.getElementById("result_out_text").innerHTML = data[data.length - 1].count_OUT["value"];
+                    }
+                    //แสดงข้อมูลจำนวนลานจอดที่เหลือ
+                    fetch("http://127.0.0.1:5000/getdataf3")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDataem3(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDataem3(data) {
+                        $("#result_em").show();
+                        var car = 150;
+                        document.getElementById("result_em_text").innerHTML = car - data[data.length - 1].count_IN["value"] + data[data.length - 1].count_OUT["value"];
+                    }
+                    //แสดงเวลาอัพเดทข้อมูลล่าสุด
+                    fetch("http://127.0.0.1:5000/getdataf3")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDatacurrentime3(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDatacurrentime3(data) {
+                        $("#currentime").show();
+                        document.getElementById("currentime").innerHTML = "Update Time:" + data[data.length - 1].currentTime["value"];
+                    }
+                    // Loop function -------------------------------------------------------------------
+                    var delayInMilliseconds = 5000; //5 second
+                    loop_f3 = setTimeout(function () {
+                        console.log("Loop F3 running");
+                        floor3();
+                    }, delayInMilliseconds);
+                    // Loop function -------------------------------------------------------------------
+                }
+            </script>
+            <!-------ดึงข้อมูลชั้น 4 ----->
+            <script>
+                function floor4() {
+                    clearTimeout(loop_f2);
+                    clearTimeout(loop_f3);
+                    clearTimeout(loop_f4);
+
+                    $("#myChart").hide();
+                    //ดึงข้อมูลรถเข้า
+                    fetch("http://127.0.0.1:5000/getdataf4")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDatain4(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDatain4(data) {
+                        $("#result_in").show();
+                        document.getElementById("result_in_text").innerHTML = data[data.length - 1].count_IN["value"];
+                    }
+                    //แสดงข้อมูลรถออก
+                    fetch("http://127.0.0.1:5000/getdataf4")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDataout4(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDataout4(data) {
+                        $("#result_out").show();
+                        document.getElementById("result_out_text").innerHTML = data[data.length - 1].count_OUT["value"];
+                    }
+                    //แสดงข้อมูลจำนวนลานจอดที่เหลือ
+                    fetch("http://127.0.0.1:5000/getdataf4")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDataem4(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDataem4(data) {
+                        $("#result_em").show();
+                        var car = 150;
+                        document.getElementById("result_em_text").innerHTML = car - data[data.length - 1].count_IN["value"] + data[data.length - 1].count_OUT["value"];
+                    }
+                    //แสดงเวลาอัพเดทข้อมูลล่าสุด
+                    fetch("http://127.0.0.1:5000/getdataf4")
+                        .then(function (response) {
+                            //แปลงข้อมูลเป็น json
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            //แสดงข้อมูล
+                            appendDatacurrentime4(data);
+                        })
+                        .catch(function (err) {
+                            console.log("error: " + err);
+                        });
+                    function appendDatacurrentime4(data) {
+                        $("#currentime").show();
+                        document.getElementById("currentime").innerHTML = "Update Time:" + data[data.length - 1].currentTime["value"];
+                    }
+                    // Loop function -------------------------------------------------------------------
+                    var delayInMilliseconds = 5000; //5 second
+                    loop_f4 = setTimeout(function () {
+                        console.log("Loop F4 running");
+                        floor4();
+                    }, delayInMilliseconds);
+                    // Loop function -------------------------------------------------------------------
+                }
+            </script>
+
+            <br />
+            <!---------------------------------กราฟ------------------------------------------------->
+            <script>
+                function graph() {
+                    $("#myChart").show();
+                    $("#result_in").hide();
+                    $("#result_out").hide();
+                    $("#result_em").hide();
+                    $("#currentime").hide();
+                    let valueIn2 = [];
+                    let valueOut2 = [];
+                    let valueIn3 = [];
+                    let valueOut3 = [];
+                    let valueIn4 = [];
+                    let valueOut4 = [];
+
+                    var car = 150;
+                    var f2_in;
+                    var f3_in;
+                    var f4_in;
+                    var f2_out;
+                    var f3_out;
+                    var f4_out;
+                    var f2_em;
+                    var f3_em;
+                    var f4_em;
+                    $(document).ready(function () {
+                        showGraph();
+                    });
+                    function showGraph() {
+                        $.get("http://127.0.0.1:5000/getdataf2", function (data2) {
+                            console.log(data2);
+                            f2_in = data2[data2.length - 1].count_IN["value"];
+                            f2_out = data2[data2.length - 1].count_OUT["value"];
+                            f2_em = car - data2[data2.length - 1].count_IN["value"] + data2[data2.length - 1].count_OUT["value"];
+                            $.get("http://127.0.0.1:5000/getdataf3", function (data3) {
+                                console.log(data3);
+                                f3_in = data3[data3.length - 1].count_IN["value"];
+                                f3_out = data3[data3.length - 1].count_OUT["value"];
+                                f3_em = car - data3[data3.length - 1].count_IN["value"] + data3[data3.length - 1].count_OUT["value"];
+                                $.get("http://127.0.0.1:5000/getdataf4", function (data4) {
+                                    console.log(data4);
+                                    f4_in = data4[data4.length - 1].count_IN["value"];
+                                    f4_out = data4[data4.length - 1].count_OUT["value"];
+                                    f4_em = car - data4[data4.length - 1].count_IN["value"] + data4[data4.length - 1].count_OUT["value"];
+
+                                    console.log(f2_in);
+                                    console.log(f2_out);
+                                    console.log(f3_in);
+                                    console.log(f3_out);
+                                    console.log(f4_in);
+                                    console.log(f4_out);
+                                    console.log(f2_em);
+                                    console.log(f3_em);
+                                    console.log(f4_em);
+
+                                    let chartdata = {
+                                        labels: ["F2", "F3", "F4"],
+                                        datasets: [
+                                            {
+                                                label: "IN",
+                                                backgroundColor: "#1bccd5ad",
+                                                borderColor: "#46d5f1",
+                                                borderWidth: 1,
+                                                data: [f2_in, f3_in, f4_in],
+                                            },
+                                            {
+                                                label: "OUT",
+                                                backgroundColor: "#F70000",
+                                                borderColor: "#F70000",
+                                                borderWidth: 1,
+                                                data: [f2_out, f3_out, f4_out],
+                                            },
+                                            {
+                                                label: "EMPTY",
+                                                backgroundColor: "#B5B8BB",
+                                                borderColor: "#B5B8BB",
+                                                borderWidth: 1,
+                                                data: [f2_em, f3_em, f4_em],
+                                            },
+                                        ],
+                                    };
+                                    let graphTarget = $("#myChart");
+                                    let barGraph = new Chart(graphTarget, {
+                                        type: "bar",
+                                        data: chartdata,
+                                        options: {
+                                            legend: {
+                                                display: true,
+                                                labels: {
+                                                    fontSize: 20,
+                                                },
+                                            },
+                                            responsive: true,
+                                            title: {
+                                                display: true,
+                                                text: "การเข้าออกของรถยนต์",
+                                                fontSize: 40,
+                                            },
+                                        },
+                                    });
+                                });
+                            });
+                        });
+                    }
+                }
+            </script>
+            <!---------------------------------กราฟ------------------------------------------------->
+            <!---------------------------------นาฬิกา------------------------------------------------->
+            <script>
+                function startTime() {
+                    const today = new Date();
+                    let h = today.getHours();
+                    let m = today.getMinutes();
+                    let s = today.getSeconds();
+                    m = checkTime(m);
+                    s = checkTime(s);
+                    document.getElementById("txt").innerHTML = h + ":" + m + ":" + s;
+                    setTimeout(startTime, 1000);
+                }
+
+                function checkTime(i) {
+                    if (i < 10) {
+                        i = "0" + i;
+                    } // add zero in front of numbers < 10
+                    return i;
+                }
+            </script>
+        </center>
+    </body>
+</html>

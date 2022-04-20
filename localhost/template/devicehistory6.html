@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!------------------------------------------------------->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <!-------------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!--------------------datatable----------------------------------->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.1.1/css/dataTables.dateTime.min.css" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/luxon/1.25.0/luxon.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.17/dayjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.17/plugin/utc.js"></script>
+    <!--------------------datatable----------------------------------->
+    <title>DEVICEHISTORY2</title>
+    <style>
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        .topnav a.active {
+          background-color: #0B93FE;
+          color: white;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <div class="topnav">
+            <a class="active" href="/nstda/parking/deviceinfo6">Back</a>
+            
+          </div>
+          <br />
+        <h2>ประวัติการทำงานกล้อง 6</h2>
+        <!-- ------------------------------------ตาราง---------------------------------------------- -->
+        <table id='tableDate' border="0" cellspacing="5" cellpadding="5">
+          <tbody><tr>
+              <td>เริ่มวันที่:</td>
+              <td><input type="text" id="min" name="min" ></td>
+          </tr>
+          <tr>
+              <td>ถึงวันที่:</td>
+              <td><input type="text" id="max" name="max" ></td>
+          </tr>
+      </tbody></table>
+    <table id="myTable_result"> 
+      <thead>
+        <tr>
+           <td>Device ID</td>
+           <td>Building</td>
+           <td>Floor</td>
+           <td>Event</td>
+           <td>Car IN</td>
+           <td>Car Out</td>
+           <td>CurrentTime</td>
+           <td>RestartTime</td>
+       </tr>
+      </thead>
+       <tbody id="myTable"></tbody>
+    </table>
+       <!-- ------------------------------------ตาราง---------------------------------------------- -->
+        <!-- ------------------------------------ ID ตาราง---------------------------------------------- -->
+    
+        <!-- ------------------------------------ ID ตาราง---------------------------------------------- -->
+    <script>
+        fetch("https://203.185.67.133:3999/api/getdatadevice6/history/2/user/6123c059c1d59ed31a13d2f5/data/612a2a14c0bcb5d268b22e4e/owner/readwrite?limit=150", { method: "GET", headers: { Authorization: "Basic " + btoa("sorawit:1q2w3e4r5t") } })
+                            .then(function (response) {         //แปลงข้อมูลเป็น json
+                                return response.json();
+                            })
+                            .then(function (data) {         //แสดงข้อมูล
+                                appendData2(data);
+                                console.log(data)
+                            })
+                            .catch(function (err) {
+                                 console.log('error: ' + err);
+                           });
+                        function appendData2(data) {
+                            var table = document.getElementById('myTable') 
+                            table.innerHTML = "";
+                            for (var y = 0; y < data.length; y++){
+                                var row = `<tr>
+                                    <td>${data[y]['id']}</td>
+                                    <td>${data[y]['building']}</td>
+                                    <td>${data[y]['floor']}</td>
+                                    <td>${data[y]['event']}</td>
+                                    <td>${data[y]['count_IN']}</td>
+                                    <td>${data[y]['count_OUT']}</td>
+                                    <td>${data[y]['currentTime']}</td>
+                                    <td>${data[y]['restartTime']}</td>
+                                    </tr>`
+                                table.innerHTML += row 
+                            } 
+                            var minDate, maxDate,button;
+                            
+                            // Custom filtering function which will search data in column four between two values
+                            $.fn.dataTable.ext.search.push(
+                                function( settings, data, dataIndex ) {
+                                    var min = minDate.val();
+                                    var max = maxDate.val();
+                                    var date = new Date( data[6] );
+                            
+                                    if (
+                                        ( min === null && max === null ) ||
+                                        ( min === null && date <= max ) ||
+                                        ( min <= date   && max === null ) ||
+                                        ( min <= date   && date <= max )
+                                    ) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
+                            );
+                            
+                            $(document).ready(function() {
+                                
+                                
+                                // Create date inputs
+                                minDate = new DateTime($('#min'), {
+                                    format: 'YYYY-MM-DD HH:MM'
+                                    
+                                });
+                                maxDate = new DateTime($('#max'), {
+                                    format: 'YYYY-MM-DD HH:MM'
+                                });
+
+                                // DataTables initialisation
+                                var table = $('#myTable_result').DataTable();
+                            
+                                // Refilter the table
+                                $('#min, #max').on('change', function () {
+                                    table.draw();
+                                });
+                            })
+                        } 
+                    
+    </script>
+    </center>
+</body>
+</html>
